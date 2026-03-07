@@ -1,0 +1,37 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "slug": "czym-jest-mhbot",
+      "title": "Czym jest mHBOT i jak działa?",
+      "category": "Edukacja",
+      "date": "2026-03-01",
+      "excerpt": "Terapia hiperbaryczna to metoda leczenia polegająca na oddychaniu czystym tlenem pod podwyższonym ciśnieniem. Dowiedz się jak dokładnie działa i komu może pomóc.",
+      "content": "Terapia hiperbaryczna (mHBOT) polega na przebywaniu w specjalnej komorze, gdzie ciśnienie powietrza jest wyższe niż atmosferyczne — zazwyczaj od 1.3 do 2.4 ATA.\n\nPod takim ciśnieniem tlen rozpuszcza się bezpośrednio w osoczu, limfie i płynie mózgowo-rdzeniowym. Do komórek dociera nawet 15 razy więcej tlenu niż przy normalnym oddychaniu.\n\nEfekty terapii obejmują m.in. przyspieszenie gojenia ran, redukcję stanów zapalnych, poprawę funkcji poznawczych oraz szybszą regenerację po wysiłku fizycznym.\n\nSesja trwa zazwyczaj 60 minut. Pacjent siedzi lub leży wygodnie w komorze, oddychając przez maskę lub w przestrzeni wypełnionej czystym tlenem.",
+      "image": "🫁",
+      "readTime": "4 min"
+    },
+    {
+      "id": 2,
+      "slug": "mhbot-dla-sportowcow",
+      "title": "mHBOT dla sportowców — szybsza regeneracja po treningu",
+      "category": "Sport",
+      "date": "2026-03-05",
+      "excerpt": "Coraz więcej profesjonalnych sportowców korzysta z komory hiperbarycznej. Sprawdź dlaczego i jak tlenoterapia może poprawić Twoje wyniki.",
+      "content": "Sportowcy wyczynowi od lat korzystają z tlenoterapii jako metody przyspieszenia regeneracji. NBA, Premier League, MMA — czołowi zawodnicy mają komory hiperbaryczne w swoich domach.\n\nDlaczego tlenoterapia działa tak dobrze po treningu?\n\nPo intensywnym wysiłku mięśnie są przeciążone, naczynia krwionośne miejscowo zwężone, a tkanki pozbawione tlenu. mHBOT dostarcza tlen bezpośrednio do uszkodzonych komórek, omijając ograniczenia hemoglobiny.\n\nEfekty które zauważysz:\n- Mniejsze zakwasy już następnego dnia\n- Szybszy powrót do pełnej sprawności po kontuzji\n- Lepsza wydolność tlenowa\n- Krótszy czas potrzebny do regeneracji między treningami\n\nZalecamy serie 5-10 sesji po intensywnych blokach treningowych lub w trakcie rehabilitacji.",
+      "image": "⚡",
+      "readTime": "3 min"
+    },
+    {
+      "id": 3,
+      "slug": "mhbot-uroda-kolagen",
+      "title": "Tlen i kolagen — sekret młodej skóry",
+      "category": "Beauty",
+      "date": "2026-03-07",
+      "excerpt": "Tlenoterapia hiperbaryczna pobudza naturalną produkcję kolagenu i elastyny. Poznaj mechanizm działania i efekty anti-aging mHBOT.",
+      "content": "Skóra to największy organ naszego ciała — i jeden z pierwszych, który sygnalizuje niedobór tlenu. Zmarszczki, szarość, utrata napięcia — to często efekt niedotlenienia komórek skóry.\n\nmHBOT działa od środka. Pod podwyższonym ciśnieniem tlen przenika głęboko do tkanek skóry właściwej, stymulując fibroblasty do produkcji kolagenu i elastyny.\n\nPo serii sesji pacjenci zauważają:\n- Wyraźną poprawę napięcia skóry\n- Redukcję drobnych zmarszczek\n- Wyrównanie kolorytu i rozświetlenie cery\n- Zmniejszenie widoczności blizn\n- Głęboki detoks komórkowy\n\nEfekty są szczególnie widoczne po 5-10 sesjach. Dla utrzymania rezultatów zalecamy sesje podtrzymujące raz w miesiącu.",
+      "image": "✨",
+      "readTime": "3 min"
+    }
+  ]
+}

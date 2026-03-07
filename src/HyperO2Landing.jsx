@@ -68,7 +68,7 @@ function Nav() {
             <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "#00AEEF", letterSpacing: 2 }}>SLASK - SOSNOWIEC</div>
           </div>
         </div>
-        <nav style={{ display: "flex", gap: 32 }} className="hidden-mobile">
+        <nav style={{ display: "flex", gap: 32, alignItems: "center" }} className="hidden-mobile">
           {links.map(l => (
             <a key={l} href={"#" + l.toLowerCase()}
               style={{ fontSize: "0.875rem", fontWeight: 500, color: scrolled ? "#1a3a5c" : "rgba(255,255,255,0.9)", textDecoration: "none", transition: "opacity 0.2s" }}
@@ -76,6 +76,11 @@ function Nav() {
               onMouseLeave={e => e.target.style.opacity = "1"}
             >{l}</a>
           ))}
+          <a href="/komora-hiperbaryczna/blog"
+            style={{ fontSize: "0.875rem", fontWeight: 700, color: scrolled ? "#1B3F8A" : "#7DDEFF", textDecoration: "none", transition: "opacity 0.2s", borderBottom: "2px solid currentColor", paddingBottom: 2 }}
+            onMouseEnter={e => e.target.style.opacity = "0.7"}
+            onMouseLeave={e => e.target.style.opacity = "1"}
+          >Blog</a>
         </nav>
         <a href="tel:+48608531549" style={{
           display: "inline-flex", alignItems: "center", gap: 8, padding: "0.6rem 1.25rem",
