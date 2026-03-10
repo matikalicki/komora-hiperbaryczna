@@ -3,7 +3,7 @@ import {
   Zap, Shield, Sparkles, Moon, Phone, MapPin, Clock,
   Star, ChevronDown, Wind, Heart, CheckCircle, XCircle,
   ArrowRight, Package, User, Send, ParkingCircle,
-  Activity, Leaf, Award
+  Activity, Leaf, Award, Calendar
 } from "lucide-react";
 
 function useFadeIn() {
@@ -76,23 +76,29 @@ function Nav() {
               onMouseLeave={e => e.target.style.opacity = "1"}
             >{l}</a>
           ))}
-          <a href="/komora-hiperbaryczna/blog"
+          <a href="/blog"
             style={{ fontSize: "0.875rem", fontWeight: 700, color: scrolled ? "#1B3F8A" : "#7DDEFF", textDecoration: "none", transition: "opacity 0.2s", borderBottom: "2px solid currentColor", paddingBottom: 2 }}
             onMouseEnter={e => e.target.style.opacity = "0.7"}
             onMouseLeave={e => e.target.style.opacity = "1"}
           >Blog</a>
+          <a href="/rezerwacja"
+            style={{ fontSize: "0.875rem", fontWeight: 700, color: scrolled ? "#00AEEF" : "#7DDEFF", textDecoration: "none", transition: "opacity 0.2s", borderBottom: "2px solid currentColor", paddingBottom: 2 }}
+            onMouseEnter={e => e.target.style.opacity = "0.7"}
+            onMouseLeave={e => e.target.style.opacity = "1"}
+          >Rezerwacja</a>
         </nav>
-        <a href="tel:+48608531549" style={{
-          display: "inline-flex", alignItems: "center", gap: 8, padding: "0.6rem 1.25rem",
-          borderRadius: 99, fontSize: "0.875rem", fontWeight: 600, color: "white", textDecoration: "none",
-          background: "linear-gradient(135deg,#1B3F8A,#00AEEF)",
-          boxShadow: "0 4px 16px rgba(27,63,138,0.35)", transition: "transform 0.2s",
-        }}
-          onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-          onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-        >
-          <Phone size={13} /> 608 531 549
-        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "0.6rem 1rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 600, color: scrolled ? "#1B3F8A" : "rgba(255,255,255,0.85)", textDecoration: "none", border: scrolled ? "1.5px solid #DBEAFE" : "1.5px solid rgba(255,255,255,0.3)", transition: "all 0.2s" }}
+            onMouseEnter={e => e.currentTarget.style.background = scrolled ? "#EBF4FF" : "rgba(255,255,255,0.1)"}
+            onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
+            <Phone size={13} /> 608 531 549
+          </a>
+          <a href="https://komorahiperbarycznasosnowiec.simplybook.it" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.6rem 1.25rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 700, color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 4px 16px rgba(27,63,138,0.35)", transition: "transform 0.2s" }}
+            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
+            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
+            <Calendar size={13} /> Zarezerwuj
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -133,15 +139,20 @@ function Hero() {
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-            <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 8px 32px rgba(0,174,239,0.45)", transition: "transform 0.2s" }}
+            <a href="https://komorahiperbarycznasosnowiec.simplybook.it" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 700, fontSize: "0.95rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 8px 32px rgba(0,174,239,0.45)", transition: "transform 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
               onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-              <Phone size={16} /> +48 608 531 549
+              <Calendar size={16} /> Zarezerwuj wizytę
             </a>
-            <a href="#tlenoterapia" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "white", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", transition: "background 0.2s" }}
+            <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "white", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", transition: "background 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
               onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-              Dowiedz sie wiecej <ChevronDown size={16} />
+              <Phone size={16} /> +48 608 531 549
+            </a>
+            <a href="#tlenoterapia" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "rgba(255,255,255,0.7)", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.color = "white"}
+              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}>
+              Dowiedz się więcej <ChevronDown size={16} />
             </a>
           </div>
 
@@ -360,10 +371,11 @@ function PricingCard({ p, i }) {
             </li>
           ))}
         </ul>
-        <a href="tel:+48608531549" style={{ display: "block", width: "100%", padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 600, textAlign: "center", textDecoration: "none", background: p.featured ? "linear-gradient(135deg,#00AEEF,#7DDEFF)" : p.accent + "18", color: p.featured ? "white" : p.accent, border: p.featured ? "none" : "1.5px solid " + p.accent + "40", boxSizing: "border-box", transition: "transform 0.2s" }}
+        <a href="https://komorahiperbarycznasosnowiec.simplybook.it" target="_blank" rel="noopener noreferrer"
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 600, textAlign: "center", textDecoration: "none", background: p.featured ? "linear-gradient(135deg,#00AEEF,#7DDEFF)" : p.accent + "18", color: p.featured ? "white" : p.accent, border: p.featured ? "none" : "1.5px solid " + p.accent + "40", boxSizing: "border-box", transition: "transform 0.2s" }}
           onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}
           onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-          {p.cta}
+          <Calendar size={15} /> {p.cta}
         </a>
       </div>
     </FadeSection>
