@@ -51,7 +51,7 @@ function Nav() {
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  const links = ["Tlenoterapia", "Oferta", "Bezpieczenstwo", "Opinie", "Kontakt"];
+  const links = ["Tlenoterapia", "Oferta", "Bezpieczeństwo", "Opinie", "Kontakt"];
   return (
     <header style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
@@ -65,7 +65,7 @@ function Nav() {
           <Logo size={40} />
           <div>
             <div style={{ fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "0.95rem", color: "#1B3F8A", lineHeight: 1.2 }}>Komora Hiperbaryczna</div>
-            <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "#00AEEF", letterSpacing: 2 }}>SLASK - SOSNOWIEC</div>
+            <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "#00AEEF", letterSpacing: 2 }}>ŚLĄSK – SOSNOWIEC</div>
           </div>
         </div>
         <nav style={{ display: "flex", gap: 32, alignItems: "center" }} className="hidden-mobile">
@@ -117,19 +117,19 @@ function Hero() {
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "8rem 1.5rem 4rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center", width: "100%" }} className="hero-grid">
         <div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1.5rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "rgba(0,174,239,0.2)", border: "1px solid rgba(0,174,239,0.4)", color: "#7DDEFF" }}>
-            <Activity size={11} /> Terapia mHBOT - Sosnowiec
+            <Activity size={11} /> Terapia mHBOT – Sosnowiec
           </div>
 
           <h1 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.9rem,4vw,3.2rem)", lineHeight: 1.2, color: "white", fontWeight: 400, marginBottom: "1.5rem" }}>
-            Odetchnij pelna piersia.{" "}
+            Odetchnij pełną piersią.{" "}
             <span style={{ background: "linear-gradient(90deg,#7DDEFF,#C2EDFF,#7DDEFF)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", animation: "shimmer 4s linear infinite" }}>
-              Regeneracja na poziomie komorkowym.
+              Regeneracja na poziomie komórkowym.
             </span>
           </h1>
 
           <p style={{ fontSize: "1.1rem", lineHeight: 1.7, color: "rgba(255,255,255,0.72)", maxWidth: 480, marginBottom: "2rem" }}>
             Profesjonalne zabiegi w komorze hiperbarycznej dla zdrowia, urody i sportu.{" "}
-            <strong style={{ color: "#7DDEFF" }}>al. Zwyciestwa 6, 41-200 Sosnowiec</strong>.
+            <strong style={{ color: "#7DDEFF" }}>al. Zwycięstwa 6, 41-200 Sosnowiec</strong>.
           </p>
 
           <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "0.75rem 1.25rem", borderRadius: 16, marginBottom: "2rem", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
@@ -157,7 +157,7 @@ function Hero() {
           </div>
 
           <div style={{ display: "flex", gap: 32, marginTop: "3rem", paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-            {[["5", "Ocena Google"], ["15x", "Wiecej tlenu"], ["mHBOT", "Certyfikowana komora"]].map(([v, l]) => (
+            {[["5", "Ocena Google"], ["15×", "Więcej tlenu"], ["mHBOT", "Certyfikowana komora"]].map(([v, l]) => (
               <div key={l}>
                 <div style={{ fontFamily: "Georgia,serif", fontSize: "1.5rem", color: "white", fontWeight: 400 }}>{v}</div>
                 <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.5)", marginTop: 2 }}>{l}</div>
@@ -171,8 +171,8 @@ function Hero() {
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 32 }}>
               <div style={{ width: "100%", height: "100%", borderRadius: 16, background: "linear-gradient(180deg,rgba(0,174,239,0.1),rgba(27,63,138,0.3))", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative" }}>
                 <Wind size={64} style={{ color: "rgba(0,174,239,0.7)", animation: "floatUp 4s ease-in-out infinite" }} />
-                <p style={{ color: "rgba(0,174,239,0.9)", marginTop: 16, fontSize: "0.9rem" }}>Komora Hiperbaryczna Slask</p>
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginTop: 4 }}>al. Zwyciestwa 6 - Sosnowiec</p>
+                <p style={{ color: "rgba(0,174,239,0.9)", marginTop: 16, fontSize: "0.9rem" }}>Komora Hiperbaryczna Śląsk</p>
+                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginTop: 4 }}>al. Zwycięstwa 6 – Sosnowiec</p>
                 <div style={{ position: "absolute", top: 16, right: 16, padding: "0.3rem 0.75rem", borderRadius: 99, fontSize: "0.72rem", fontWeight: 600, background: "rgba(0,174,239,0.2)", border: "1px solid rgba(0,174,239,0.35)", color: "#7DDEFF" }}>Certyfikat CE</div>
               </div>
             </div>
@@ -183,8 +183,8 @@ function Hero() {
                 <CheckCircle size={18} color="white" />
               </div>
               <div>
-                <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "white" }}>Gabinet medycyny alternatywnej</div>
-                <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.55)" }}>Sosnowiec - Slask</div>
+                <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "white" }}>Gabinet tlenoterapii hiperbarycznej</div>
+                <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.55)" }}>Sosnowiec – Śląsk</div>
               </div>
             </div>
           </div>
@@ -384,9 +384,9 @@ function PricingCard({ p, i }) {
 
 function Pricing() {
   const plans = [
-    { icon: User, tag: null, title: "Sesja Pojedyncza", price: "130", unit: "zl / 60 min", desc: "Idealna na pierwsze doswiadczenie lub jednorazowa regeneracje.", features: ["60 minut w komorze mHBOT", "Konsultacja wstepna", "Badanie saturacji O2", "Opieka personelu medycznego"], cta: "Zarezerwuj sesje", accent: "#1B3F8A", featured: false },
-    { icon: Package, tag: "Oszczedzasz 200 zl", title: "Pakiet 10 wejsc", price: "1100", unit: "zl / 10 sesji", desc: "Najchetniej wybierany pakiet - pelny cykl regeneracyjny dla trwalych efektow.", features: ["10 x 60 minut", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Bezplatna konsultacja", "Monitorowanie postepu"], cta: "Wybierz pakiet", accent: "#1B3F8A", featured: true },
-    { icon: Award, tag: "Najlepsza wartosc", title: "Pakiet 25 wejsc", price: "2000", unit: "zl / 25 sesji", desc: "Dla osob szukajacych dlugofalowych efektow - najkorzystniejsza cena za sesje.", features: ["25 x 60 minut", "Oszczedzasz az 1250 zl", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Pelny program regeneracji"], cta: "Wybierz pakiet 25", accent: "#00AEEF", featured: false },
+    { icon: User, tag: null, title: "Sesja pojedyncza", price: "130", unit: "zł / 80 min", desc: "Idealna na pierwsze doświadczenie lub jednorazową regenerację.", features: ["80 minut w komorze mHBOT", "Konsultacja wstępna", "Opieka personelu medycznego"], cta: "Zarezerwuj sesję", accent: "#1B3F8A", featured: false },
+    { icon: Package, tag: "Oszczędzasz 200 zł", title: "Pakiet 10 wejsc", price: "1100", unit: "zł / 10 sesji", desc: "Najchętniej wybierany pakiet – pełny cykl regeneracyjny dla trwałych efektów.", features: ["10 x 80 minut", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Bezpłatna konsultacja", "Monitorowanie postępu"], cta: "Wybierz pakiet", accent: "#1B3F8A", featured: true },
+    { icon: Award, tag: "Najlepsza wartość", title: "Pakiet 25 wejsc", price: "2100", unit: "zł / 25 sesji", desc: "Dla osób szukających długofalowych efektów – najkorzystniejsza cena za sesję.", features: ["25 x 80 minut", "Oszczędzasz aż 1 250 zł", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Pełny program regeneracji"], cta: "Wybierz pakiet 25", accent: "#00AEEF", featured: false },
   ];
   return (
     <section id="oferta" style={{ padding: "9rem 1.5rem", background: "white" }}>
@@ -397,7 +397,7 @@ function Pricing() {
               <Award size={12} /> Cennik
             </div>
             <h2 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.8rem,3.5vw,2.8rem)", color: "#071E3D", fontWeight: 400 }}>
-              Oferta zabiegow mHBOT
+              Oferta zabiegów mHBOT
             </h2>
           </div>
         </FadeSection>
@@ -411,12 +411,12 @@ function Pricing() {
 
 function Safety() {
   const items = [
-    "Nieleczona odma plucna (pneumothorax)",
-    "Stosowanie niektorych lekow chemioterapeutycznych (bleomycyna, cisplatyna)",
-    "Ciaza (I trymestr - wymagana konsultacja lekarska)",
-    "Nieleczone choroby ucha srodkowego lub zatok",
-    "Aktywne zapalenie pluc lub infekcja gorna drog oddechowych",
-    "Ciezka niewydolnosc serca",
+    "Nieleczona odma płucna (pneumothorax)",
+    "Stosowanie niektórych leków chemioterapeutycznych (bleomycyna, cisplatyna)",
+    "Ciąża (I trymestr – wymagana konsultacja lekarska)",
+    "Nieleczone choroby ucha środkowego lub zatok",
+    "Aktywne zapalenie płuc lub infekcja górnych dróg oddechowych",
+    "Ciężka niewydolność serca",
     "Klaustrofobia (oceniana indywidualnie)",
     "Aktywna padaczka bez kontroli farmakologicznej",
   ];
@@ -426,18 +426,18 @@ function Safety() {
         <FadeSection>
           <div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1.25rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "#DBEAFE", color: "#1B3F8A" }}>
-              <Shield size={12} /> Bezpieczenstwo
+              <Shield size={12} /> Bezpieczeństwo
             </div>
             <h2 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.6rem,3vw,2.4rem)", color: "#071E3D", fontWeight: 400, lineHeight: 1.3, marginBottom: "1rem" }}>
-              Twoje bezpieczenstwo jest naszym priorytetem
+              Twoje bezpieczeństwo jest naszym priorytetem
             </h2>
             <p style={{ lineHeight: 1.75, color: "#4A6580", marginBottom: "1.5rem" }}>
-              Profesjonalna obsluga wyjasni Ci zalety korzystania z komory i przeprowadzi szczegolowy wywiad zdrowotny przed kazdym zabiegiem.
+              Profesjonalna obsługa wyjaśni Ci zalety korzystania z komory i przeprowadzi szczegółowy wywiad zdrowotny przed każdym zabiegiem.
             </p>
             {[
-              { icon: Heart, text: "Konsultacja medyczna przed kazda seria zabiegow" },
-              { icon: Activity, text: "Monitorowanie saturacji O2 w czasie rzeczywistym" },
-              { icon: Award, text: "Certyfikat CE - Normy ISO - Ubezpieczenie OC" },
+              { icon: Heart, text: "Konsultacja medyczna przed każdą serią zabiegów" },
+              { icon: Activity, text: "Monitorowanie saturacji O₂ w czasie rzeczywistym" },
+              { icon: Award, text: "Certyfikat CE · Normy ISO · Ubezpieczenie OC" },
             ].map(item => (
               <div key={item.text} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, fontSize: "0.875rem", color: "#1a3a5c" }}>
                 <div style={{ width: 32, height: 32, borderRadius: 8, background: "#DBEAFE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -453,7 +453,7 @@ function Safety() {
           <div style={{ borderRadius: 20, padding: "1.5rem", background: "white", border: "1px solid #E0ECFA", boxShadow: "0 4px 24px rgba(14,66,120,0.08)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "1.25rem", paddingBottom: "1rem", borderBottom: "1px solid #EAF0F8" }}>
               <XCircle size={18} style={{ color: "#EF4444" }} />
-              <h3 style={{ fontWeight: 600, color: "#071E3D", fontSize: "0.95rem" }}>Przeciwwskazania bezwzgledne i wzgledne</h3>
+              <h3 style={{ fontWeight: 600, color: "#071E3D", fontSize: "0.95rem" }}>Przeciwwskazania bezwzględne i względne</h3>
             </div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {items.map((c, i) => (
@@ -466,7 +466,7 @@ function Safety() {
               ))}
             </ul>
             <p style={{ fontSize: "0.75rem", marginTop: "1.25rem", paddingTop: "1rem", borderTop: "1px solid #EAF0F8", color: "#8FA5BC", lineHeight: 1.6 }}>
-              Lista nie jest wyczerpujaca. Ostateczna kwalifikacje przeprowadza personel Komory Hiperbarycznej Slask Sosnowiec (mHBOT).
+              Lista nie jest wyczerpująca. Ostateczną kwalifikację przeprowadza personel Komory Hiperbarycznej Śląsk Sosnowiec (mHBOT).
             </p>
           </div>
         </FadeSection>
@@ -477,9 +477,9 @@ function Safety() {
 
 function Testimonials() {
   const reviews = [
-    { name: "Szymon Dziechciarz", initials: "Sz", role: "Biegacz", stars: 5, date: "3 miesiace temu", text: "Jako biegacz zauwazylam znaczacy wzrost wydolnosci pluc. Oddechy sa glebsze, a dlugie dystanse pokonuje ze znacznie mniejszym wysilkiem niz wczesniej. Niesamowite efekty!" },
-    { name: "Dawid Ryndak", initials: "D", role: "Klient gabinetu", stars: 5, date: "3 lata temu", text: "Super miejsce dostepne w miescie. Profesjonalna obsluga wyjasni zalety korzystania z komory. Polecam kazdemu kto szuka skutecznej metody regeneracji." },
-    { name: "Joanna Gwіzdala", initials: "J", role: "Stala klientka", stars: 5, date: "5 lat temu", text: "Swietny sposob regeneracji po dlugim i meczacym dniu. Polecam zajrzec. Obsluga przemila - od razu czujesz sie zaopiekowany i w dobrych rekach." },
+    { name: "Szymon Dziechciarz", initials: "Sz", role: "Biegacz", stars: 5, date: "3 miesiace temu", text: "Jako biegacz zauważyłam znaczący wzrost wydolności płuc. Oddechy są głębsze, a długie dystanse pokonuję ze znacznie mniejszym wysiłkiem niż wcześniej. Niesamowite efekty!" },
+    { name: "Dawid Ryndak", initials: "D", role: "Klient gabinetu", stars: 5, date: "3 lata temu", text: "Super miejsce dostępne w mieście. Profesjonalna obsługa wyjaśni zalety korzystania z komory. Polecam każdemu, kto szuka skutecznej metody regeneracji." },
+    { name: "Joanna Gwіzdala", initials: "J", role: "Stala klientka", stars: 5, date: "5 lat temu", text: "Świetny sposób regeneracji po długim i męczącym dniu. Polecam zajrzeć. Obsługa przemiła – od razu czujesz się zaopiekowany i w dobrych rękach." },
   ];
   return (
     <section id="opinie" style={{ padding: "9rem 1.5rem", background: "white" }}>
@@ -490,7 +490,7 @@ function Testimonials() {
               <Star size={12} /> Opinie z Google
             </div>
             <h2 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.8rem,3.5vw,2.8rem)", color: "#071E3D", fontWeight: 400 }}>
-              Co mowia nasi pacjenci?
+              Co mówią nasi pacjenci?
             </h2>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginTop: "1rem" }}>
               {[1,2,3,4,5].map(i => <Star key={i} size={22} fill="#F59E0B" style={{ color: "#F59E0B" }} />)}
@@ -573,7 +573,7 @@ function Contact() {
                 <ParkingCircle size={18} style={{ color: "#7DDEFF" }} />
               </div>
               <h4 style={{ fontWeight: 600, fontSize: "0.875rem", color: "white", marginBottom: "0.5rem" }}>Informacje praktyczne</h4>
-              {["Darmowy parking przed wejsciem", "Dostep dla niepelnosprawnych", "Brak skierowania lekarskiego"].map(t => (
+              {["Darmowy parking przed wejściem", "Dostęp dla niepełnosprawnych", "Brak skierowania lekarskiego"].map(t => (
                 <div key={t} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 8 }}>
                   <CheckCircle size={13} style={{ color: "#00AEEF", flexShrink: 0, marginTop: 2 }} />
                   <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", margin: 0, lineHeight: 1.5 }}>{t}</p>
@@ -588,7 +588,7 @@ function Contact() {
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "2.5rem" }}>
           <FadeSection>
             <div>
-              <h3 style={{ fontFamily: "Georgia,serif", fontSize: "1.2rem", color: "white", fontWeight: 400, marginBottom: "1.25rem" }}>Znajdz nas na mapie</h3>
+              <h3 style={{ fontFamily: "Georgia,serif", fontSize: "1.2rem", color: "white", fontWeight: 400, marginBottom: "1.25rem" }}>Znajdź nas na mapie</h3>
               <div style={{ borderRadius: 20, overflow: "hidden", height: 360 }}>
                 <iframe title="Mapa" src="https://www.google.com/maps?q=al.+Zwycistwa+6,+41-200+Sosnowiec,+Polska&output=embed" width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
               </div>
@@ -601,31 +601,31 @@ function Contact() {
               {sent ? (
                 <div style={{ borderRadius: 20, padding: "2rem", background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.25)", display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center" }}>
                   <CheckCircle size={40} style={{ color: "#34D399" }} />
-                  <p style={{ fontWeight: 600, color: "white", margin: 0 }}>Wiadomosc wyslana!</p>
-                  <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.55)", margin: 0 }}>Odpiszemy wkrotce.</p>
+                  <p style={{ fontWeight: 600, color: "white", margin: 0 }}>Wiadomość wysłana!</p>
+                  <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.55)", margin: 0 }}>Odpiszemy wkrótce.</p>
                 </div>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                    {[["name","Imie i nazwisko"],["phone","Numer telefonu"]].map(([k, ph]) => (
+                    {[["name","Imię i nazwisko"],["phone","Numer telefonu"]].map(([k, ph]) => (
                       <input key={k} placeholder={ph} value={form[k]} onChange={e => setForm({...form,[k]:e.target.value})}
                         style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", boxSizing: "border-box" }} />
                     ))}
                   </div>
                   <input placeholder="Adres e-mail" value={form.email} onChange={e => setForm({...form,email:e.target.value})}
                     style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", boxSizing: "border-box" }} />
-                  <textarea rows={4} placeholder="Tresc wiadomosci lub preferowany termin..." value={form.msg} onChange={e => setForm({...form,msg:e.target.value})}
+                  <textarea rows={4} placeholder="Treść wiadomości lub preferowany termin..." value={form.msg} onChange={e => setForm({...form,msg:e.target.value})}
                     style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", resize: "none", boxSizing: "border-box" }} />
                   <button onClick={() => setSent(true)}
                     style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "1rem", borderRadius: 12, fontWeight: 600, fontSize: "0.875rem", color: "white", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", border: "none", cursor: "pointer", boxShadow: "0 6px 24px rgba(0,174,239,0.35)", transition: "transform 0.2s" }}
                     onMouseEnter={e => e.currentTarget.style.transform = "scale(1.02)"}
                     onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-                    <Send size={16} /> Wyslij wiadomosc
+                    <Send size={16} /> Wyślij wiadomość
                   </button>
                   <a href="tel:+48608531549" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.7)", textDecoration: "none", border: "1px solid rgba(255,255,255,0.12)", transition: "background 0.2s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}
                     onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-                    <Phone size={15} style={{ color: "#7DDEFF" }} /> Wolisz zadzwonic? <strong style={{ color: "#7DDEFF" }}>+48 608 531 549</strong>
+                    <Phone size={15} style={{ color: "#7DDEFF" }} /> Wolisz zadzwonić? <strong style={{ color: "#7DDEFF" }}>+48 608 531 549</strong>
                   </a>
                 </div>
               )}
@@ -639,11 +639,11 @@ function Contact() {
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Logo size={30} />
             <span style={{ fontFamily: "Georgia,serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.45)" }}>
-              Komora Hiperbaryczna Slask Sosnowiec 2026
+              Komora Hiperbaryczna Śląsk Sosnowiec 2026
             </span>
           </div>
           <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.25)", margin: 0 }}>
-            al. Zwyciestwa 6, 41-200 Sosnowiec - Wszelkie prawa zastrzezone
+            al. Zwycięstwa 6, 41-200 Sosnowiec - Wszelkie prawa zastrzeżone
           </p>
         </div>
       </div>
