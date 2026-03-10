@@ -93,7 +93,7 @@ function Nav() {
             onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
             <Phone size={13} /> 608 531 549
           </a>
-          <a href="https://komorahiperbarycznasosnowiec.simplybook.it" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.6rem 1.25rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 700, color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 4px 16px rgba(27,63,138,0.35)", transition: "transform 0.2s" }}
+          <a href="/rezerwacja" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.6rem 1.25rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 700, color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 4px 16px rgba(27,63,138,0.35)", transition: "transform 0.2s" }}
             onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
             onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
             <Calendar size={13} /> Zarezerwuj
@@ -139,7 +139,7 @@ function Hero() {
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-            <a href="https://komorahiperbarycznasosnowiec.simplybook.it" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 700, fontSize: "0.95rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 8px 32px rgba(0,174,239,0.45)", transition: "transform 0.2s" }}
+            <a href="/rezerwacja" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 700, fontSize: "0.95rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 8px 32px rgba(0,174,239,0.45)", transition: "transform 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
               onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
               <Calendar size={16} /> Zarezerwuj wizytę
@@ -371,7 +371,7 @@ function PricingCard({ p, i }) {
             </li>
           ))}
         </ul>
-        <a href="https://komorahiperbarycznasosnowiec.simplybook.it" target="_blank" rel="noopener noreferrer"
+        <a href="/rezerwacja"
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 600, textAlign: "center", textDecoration: "none", background: p.featured ? "linear-gradient(135deg,#00AEEF,#7DDEFF)" : p.accent + "18", color: p.featured ? "white" : p.accent, border: p.featured ? "none" : "1.5px solid " + p.accent + "40", boxSizing: "border-box", transition: "transform 0.2s" }}
           onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}
           onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
