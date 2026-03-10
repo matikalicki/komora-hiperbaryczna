@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { ArrowLeft, Calendar, Clock, User, Phone, CheckCircle, ChevronLeft, ChevronRight, Wind } from "lucide-react";
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_SERVICE = "service_69ji9tb";
+const EMAILJS_TEMPLATE = "template_6s7aatj";
+const EMAILJS_KEY = "7dkS7I0LMk52DKooI";
 
 const HOURS = ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];
 const ADMIN_PASS = "komora2026";
@@ -238,10 +243,21 @@ export default function Rezerwacja() {
     setStep(2);
   }
 
-  function handleStep2(data) {
+  async function handleStep2(data) {
     const full = { ...booking, ...data, id: Date.now(), status: "pending", createdAt: new Date().toISOString() };
     saveReservation(full);
     setBooking(full);
+    try {
+      await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        name: data.name,
+        phone: data.phone,
+        date: formatDate(booking.date),
+        hour: booking.hour,
+        note: data.note || "Brak",
+      }, EMAILJS_KEY);
+    } catch(e) {
+      console.error("EmailJS error:", e);
+    }
     setStep(3);
   }
 
