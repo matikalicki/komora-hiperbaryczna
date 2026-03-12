@@ -379,7 +379,7 @@ function Pricing() {
       icon: User, tag: null,
       title: "Sesja Pojedyncza", price: "130", unit: "zł / 60 min",
       desc: "Idealna na pierwsze doświadczenie lub jednorazową regenerację po intensywnym dniu.",
-      features: ["60 minut w komorze mHBOT", "Konsultacja wstępna", "Badanie saturacji O₂", "Opieka personelu medycznego"],
+      features: ["60 minut w komorze mHBOT", "Konsultacja wstępna", "Opieka przez całą sesję", "Opieka personelu medycznego"],
       cta: "Zarezerwuj sesję", accent: "#1B3F8A", featured: false,
     },
     {
@@ -520,7 +520,7 @@ function Safety() {
             <div className="flex flex-col gap-3">
               {[
                 { icon: Heart, text: "Konsultacja medyczna przed każdą serią zabiegów" },
-                { icon: Activity, text: "Monitorowanie saturacji O₂ w czasie rzeczywistym" },
+                { icon: Activity, text: "Nadzór personelu przez całą sesję" },
                 { icon: Award, text: "Certyfikat CE · Normy ISO · Ubezpieczenie OC" },
               ].map(item => (
                 <div key={item.text} className="flex items-center gap-3 text-sm" style={{ color: "#1a3a5c" }}>

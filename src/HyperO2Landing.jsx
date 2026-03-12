@@ -4,8 +4,13 @@ import {
   Star, ChevronDown, Wind, Heart, CheckCircle, XCircle,
   ArrowRight, Package, User, Send, ParkingCircle,
   Activity, Leaf, Award, Calendar, MessageCircle, Gift,
-  ChevronUp, Dumbbell, Stethoscope, Smile
+  ChevronUp, Dumbbell, Stethoscope, Smile, X
 } from "lucide-react";
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_SERVICE = "service_69ji9tb";
+const EMAILJS_TEMPLATE = "template_6s7aatj";
+const EMAILJS_KEY = "7dkS7I0LMk52DKooI";
 
 function useFadeIn() {
   const ref = useRef(null);
@@ -123,9 +128,9 @@ function AnimatedCounter({ target, suffix = "" }) {
 }
 
 const PERSONAS = [
-  { id: "sport", icon: Dumbbell, label: "Jestem sportowcem", color: "#F59E0B", bg: "rgba(245,158,11,0.15)", border: "rgba(245,158,11,0.4)" },
-  { id: "rehab", icon: Stethoscope, label: "Wracam po urazie", color: "#10B981", bg: "rgba(16,185,129,0.15)", border: "rgba(16,185,129,0.4)" },
-  { id: "wellness", icon: Smile, label: "Szukam regeneracji", color: "#7DDEFF", bg: "rgba(0,174,239,0.15)", border: "rgba(0,174,239,0.4)" },
+  { id: "sport", icon: Dumbbell, label: "Jestem sportowcem", color: "#F59E0B", bg: "rgba(245,158,11,0.15)", border: "rgba(245,158,11,0.4)", cardId: "card-sport" },
+  { id: "rehab", icon: Stethoscope, label: "Wracam po urazie", color: "#10B981", bg: "rgba(16,185,129,0.15)", border: "rgba(16,185,129,0.4)", cardId: "card-zdrowie" },
+  { id: "wellness", icon: Smile, label: "Szukam regeneracji", color: "#7DDEFF", bg: "rgba(0,174,239,0.15)", border: "rgba(0,174,239,0.4)", cardId: "card-wellness" },
 ];
 
 function Hero() {
@@ -161,7 +166,16 @@ function Hero() {
           {/* Persona selector */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: "1.75rem" }}>
             {PERSONAS.map(p => (
-              <button key={p.id} onClick={() => setActivePerson(activePerson === p.id ? null : p.id)}
+              <button key={p.id} onClick={() => {
+                setActivePerson(p.id);
+                const el = document.getElementById(p.cardId);
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "center" });
+                  el.style.boxShadow = "0 0 0 3px " + p.color + ", 0 20px 48px rgba(14,66,120,0.15)";
+                  el.style.transform = "translateY(-8px)";
+                  setTimeout(() => { el.style.boxShadow = "0 2px 16px rgba(14,66,120,0.06)"; el.style.transform = "translateY(0)"; }, 2000);
+                }
+              }}
                 style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "0.5rem 1rem", borderRadius: 99, fontSize: "0.8rem", fontWeight: 600, cursor: "pointer", border: "1.5px solid", transition: "all 0.2s", background: activePerson === p.id ? p.bg : "transparent", color: activePerson === p.id ? p.color : "rgba(255,255,255,0.65)", borderColor: activePerson === p.id ? p.border : "rgba(255,255,255,0.2)" }}>
                 <p.icon size={13} /> {p.label}
               </button>
@@ -279,7 +293,7 @@ function TrustBar() {
 function WhyOxygen() {
   const benefits = [
     {
-      icon: Zap, color: "#F59E0B", bg: "#FEF3C7",
+      icon: Zap, color: "#F59E0B", bg: "#FEF3C7", cardId: "card-sport",
       title: "Sport i Regeneracja",
       subtitle: "Wróć do pełni sił szybciej niż kiedykolwiek",
       points: [
@@ -289,7 +303,7 @@ function WhyOxygen() {
       ],
     },
     {
-      icon: Shield, color: "#10B981", bg: "#D1FAE5",
+      icon: Shield, color: "#10B981", bg: "#D1FAE5", cardId: "card-zdrowie",
       title: "Zdrowie i Leczenie",
       subtitle: "Naturalne wsparcie odporności i regeneracji",
       points: [
@@ -299,7 +313,7 @@ function WhyOxygen() {
       ],
     },
     {
-      icon: Sparkles, color: "#EC4899", bg: "#FCE7F3",
+      icon: Sparkles, color: "#EC4899", bg: "#FCE7F3", cardId: "card-beauty",
       title: "Beauty i Anti-Aging",
       subtitle: "Odmłodź skórę od środka",
       points: [
@@ -309,7 +323,7 @@ function WhyOxygen() {
       ],
     },
     {
-      icon: Moon, color: "#6366F1", bg: "#EEF2FF",
+      icon: Moon, color: "#6366F1", bg: "#EEF2FF", cardId: "card-wellness",
       title: "Wellness i Równowaga",
       subtitle: "Odzyskaj energię i spokój umysłu",
       points: [
@@ -361,6 +375,7 @@ function WhyOxygen() {
           {benefits.map((b, i) => (
             <FadeSection key={b.title} delay={i * 80}>
               <div
+                id={b.cardId}
                 style={{
                   padding: "1.75rem", borderRadius: 20, background: "white",
                   border: "1px solid #EAF0F8",
@@ -561,7 +576,7 @@ function Safety() {
             <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
               {[
                 { icon: Heart, text: "Konsultacja przed każdą serią" },
-                { icon: Activity, text: "Monitoring saturacji O₂" },
+                { icon: Activity, text: "Nadzór personelu przez całą sesję" },
                 { icon: Award, text: "CE · ISO · OC" },
               ].map(item => (
                 <div key={item.text} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.5rem 1rem", borderRadius: 99, fontSize: "0.82rem", color: "#1a3a5c", background: "white", border: "1px solid #DBEAFE" }}>
@@ -622,7 +637,7 @@ function Safety() {
 
 function Testimonials() {
   const reviews = [
-    { name: "Szymon Dziechciarz", initials: "Sz", role: "Biegacz", stars: 5, date: "3 miesiace temu", text: "Jako biegacz zauważyłam znaczący wzrost wydolności płuc. Oddechy są głębsze, a długie dystanse pokonuję ze znacznie mniejszym wysiłkiem niż wcześniej. Niesamowite efekty!" },
+    { name: "Szymon Dziechciarz", initials: "Sz", role: "Biegacz", stars: 5, date: "3 miesiące temu", text: "Jako biegacz zauważyłem znaczący wzrost wydolności płuc. Oddechy są głębsze, a długie dystanse pokonuję ze znacznie mniejszym wysiłkiem niż wcześniej. Niesamowite efekty!" },
     { name: "Dawid Ryndak", initials: "D", role: "Klient gabinetu", stars: 5, date: "3 lata temu", text: "Super miejsce dostępne w mieście. Profesjonalna obsługa wyjaśni zalety korzystania z komory. Polecam każdemu, kto szuka skutecznej metody regeneracji." },
     { name: "Joanna Gwіzdala", initials: "J", role: "Stala klientka", stars: 5, date: "5 lat temu", text: "Świetny sposób regeneracji po długim i męczącym dniu. Polecam zajrzeć. Obsługa przemiła – od razu czujesz się zaopiekowany i w dobrych rękach." },
   ];
@@ -676,17 +691,36 @@ function Testimonials() {
 function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", msg: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  async function handleSendMessage() {
+    setSending(true);
+    try {
+      await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        name: form.name,
+        phone: form.phone,
+        date: "Wiadomość ze strony",
+        hour: form.email || "Brak e-mail",
+        note: form.msg || "Brak treści",
+      }, EMAILJS_KEY);
+      setSent(true);
+    } catch(e) {
+      console.error("EmailJS error:", e);
+      setSent(true);
+    } finally {
+      setSending(false);
+    }
+  }
   const hours = [
-    ["Poniedzialek", "09:00 - 18:00"], ["Wtorek", "09:00 - 18:00"],
-    ["Sroda", "09:00 - 18:00"], ["Czwartek", "09:00 - 18:00"],
-    ["Piatek", "09:00 - 18:00"], ["Sobota", "10:00 - 15:00"], ["Niedziela", "Zamkniete"],
+    ["Poniedziałek", "09:00 - 18:00"], ["Wtorek", "09:00 - 18:00"],
+    ["Środa", "09:00 - 18:00"], ["Czwartek", "09:00 - 18:00"],
+    ["Piątek", "09:00 - 18:00"], ["Sobota", "10:00 - 15:00"], ["Niedziela", "Zamknięte"],
   ];
   return (
     <section id="kontakt" style={{ background: "#071E3D" }}>
       <div style={{ padding: "4rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "2.5rem" }}>
           {[
-            { icon: MapPin, title: "Adres", lines: ["al. Zwyciestwa 6", "41-200 Sosnowiec", "woj. slaskie"] },
+            { icon: MapPin, title: "Adres", lines: ["al. Zwycięstwa 6", "41-200 Sosnowiec", "woj. śląskie"] },
             { icon: Phone, title: "Telefon", lines: ["+48 608 531 549"] },
           ].map((item, i) => (
             <FadeSection key={item.title} delay={i * 80}>
@@ -706,8 +740,8 @@ function Contact() {
               </div>
               <h4 style={{ fontWeight: 600, fontSize: "0.875rem", color: "white", marginBottom: "0.5rem" }}>Godziny otwarcia</h4>
               {hours.map(([d, h]) => (
-                <div key={d} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", gap: 16, color: h === "Zamkniete" ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.65)", marginBottom: 4 }}>
-                  <span>{d}</span><span style={{ color: h === "Zamkniete" ? "rgba(255,255,255,0.3)" : "#7DDEFF", fontWeight: 600 }}>{h}</span>
+                <div key={d} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", gap: 16, color: h === "Zamknięte" ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.65)", marginBottom: 4 }}>
+                  <span>{d}</span><span style={{ color: h === "Zamknięte" ? "rgba(255,255,255,0.3)" : "#7DDEFF", fontWeight: 600 }}>{h}</span>
                 </div>
               ))}
             </div>
@@ -735,7 +769,7 @@ function Contact() {
             <div>
               <h3 style={{ fontFamily: "Georgia,serif", fontSize: "1.2rem", color: "white", fontWeight: 400, marginBottom: "1.25rem" }}>Znajdź nas na mapie</h3>
               <div style={{ borderRadius: 20, overflow: "hidden", height: 360 }}>
-                <iframe title="Mapa" src="https://www.google.com/maps?q=al.+Zwycistwa+6,+41-200+Sosnowiec,+Polska&output=embed" width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
+                <iframe title="Mapa" src="https://www.google.com/maps?q=al.+Zwycięstwa+6,+41-200+Sosnowiec,+Polska&output=embed" width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
               </div>
             </div>
           </FadeSection>
@@ -761,11 +795,11 @@ function Contact() {
                     style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", boxSizing: "border-box" }} />
                   <textarea rows={4} placeholder="Treść wiadomości lub preferowany termin..." value={form.msg} onChange={e => setForm({...form,msg:e.target.value})}
                     style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", resize: "none", boxSizing: "border-box" }} />
-                  <button onClick={() => setSent(true)}
-                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "1rem", borderRadius: 12, fontWeight: 600, fontSize: "0.875rem", color: "white", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", border: "none", cursor: "pointer", boxShadow: "0 6px 24px rgba(0,174,239,0.35)", transition: "transform 0.2s" }}
+                  <button onClick={handleSendMessage} disabled={sending || !form.name.trim() || !form.phone.trim()}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "1rem", borderRadius: 12, fontWeight: 600, fontSize: "0.875rem", color: "white", background: sending ? "#4A6580" : "linear-gradient(135deg,#00AEEF,#1B3F8A)", border: "none", cursor: sending ? "wait" : "pointer", boxShadow: "0 6px 24px rgba(0,174,239,0.35)", transition: "transform 0.2s", opacity: (!form.name.trim() || !form.phone.trim()) ? 0.5 : 1 }}
                     onMouseEnter={e => e.currentTarget.style.transform = "scale(1.02)"}
                     onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-                    <Send size={16} /> Wyślij wiadomość
+                    <Send size={16} /> {sending ? "Wysyłanie..." : "Wyślij wiadomość"}
                   </button>
                   <a href="tel:+48608531549" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.7)", textDecoration: "none", border: "1px solid rgba(255,255,255,0.12)", transition: "background 0.2s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}
@@ -890,6 +924,78 @@ function MobileStickyBar() {
   );
 }
 
+function ExitIntentPopup() {
+  const [show, setShow] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const shown = useRef(false);
+
+  useEffect(() => {
+    // Only on desktop (no touch)
+    if ("ontouchstart" in window) return;
+    function handleMouseLeave(e) {
+      if (e.clientY < 10 && !shown.current) {
+        shown.current = true;
+        setShow(true);
+      }
+    }
+    document.addEventListener("mouseout", handleMouseLeave);
+    return () => document.removeEventListener("mouseout", handleMouseLeave);
+  }, []);
+
+  if (!show) return null;
+
+  async function handleSubmit() {
+    if (!phone.trim()) return;
+    try {
+      await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+        name: "Exit intent popup",
+        phone: phone,
+        date: "Prośba o oddzwonienie",
+        hour: "—",
+        note: "Klient zostawił numer przez exit popup",
+      }, EMAILJS_KEY);
+    } catch(e) { console.error(e); }
+    setSubmitted(true);
+    setTimeout(() => setShow(false), 2500);
+  }
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(4,18,42,0.7)", backdropFilter: "blur(4px)" }} onClick={() => setShow(false)}>
+      <div onClick={e => e.stopPropagation()} style={{ position: "relative", width: "90%", maxWidth: 440, borderRadius: 24, background: "white", padding: "2.5rem 2rem", boxShadow: "0 32px 80px rgba(14,66,120,0.3)", textAlign: "center" }}>
+        <button onClick={() => setShow(false)} style={{ position: "absolute", top: 16, right: 16, background: "none", border: "none", cursor: "pointer", color: "#8FA5BC" }}>
+          <X size={20} />
+        </button>
+        {submitted ? (
+          <>
+            <CheckCircle size={48} style={{ color: "#10B981", marginBottom: "1rem" }} />
+            <h3 style={{ fontFamily: "Georgia,serif", fontSize: "1.3rem", color: "#071E3D", fontWeight: 400, marginBottom: "0.5rem" }}>Dziękujemy!</h3>
+            <p style={{ color: "#607D96", fontSize: "0.9rem" }}>Oddzwonimy w ciągu 15 minut.</p>
+          </>
+        ) : (
+          <>
+            <div style={{ width: 56, height: 56, borderRadius: "50%", background: "linear-gradient(135deg,#0097A7,#1B3F8A)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem" }}>
+              <Phone size={24} color="white" />
+            </div>
+            <h3 style={{ fontFamily: "Georgia,serif", fontSize: "1.3rem", color: "#071E3D", fontWeight: 400, marginBottom: "0.5rem" }}>Zostaw numer — oddzwonimy w 15 min</h3>
+            <p style={{ color: "#607D96", fontSize: "0.875rem", marginBottom: "1.5rem", lineHeight: 1.6 }}>Bezpłatna konsultacja telefoniczna. Bez zobowiązań.</p>
+            <div style={{ display: "flex", gap: 8 }}>
+              <input placeholder="Twój numer telefonu" value={phone} onChange={e => setPhone(e.target.value)} type="tel"
+                style={{ flex: 1, padding: "0.85rem 1rem", borderRadius: 12, border: "1.5px solid #DBEAFE", fontSize: "0.9rem", outline: "none", color: "#071E3D" }}
+                onKeyDown={e => e.key === "Enter" && handleSubmit()} />
+              <button onClick={handleSubmit}
+                style={{ padding: "0.85rem 1.5rem", borderRadius: 12, border: "none", cursor: "pointer", fontWeight: 700, fontSize: "0.875rem", color: "white", background: "linear-gradient(135deg,#0097A7,#1B3F8A)", boxShadow: "0 4px 16px rgba(0,151,167,0.4)", whiteSpace: "nowrap" }}>
+                Zadzwoń do mnie
+              </button>
+            </div>
+            <p style={{ fontSize: "0.72rem", color: "#8FA5BC", marginTop: "1rem" }}>Odpowiadamy pon–pt 09:00–18:00, sob 10:00–15:00</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <div style={{ fontFamily: "'Segoe UI',system-ui,sans-serif", overflowX: "hidden" }}>
@@ -898,12 +1004,13 @@ export default function App() {
       <TrustBar />
       <WhyOxygen />
       <Pricing />
-      <FAQ />
       <Safety />
       <Testimonials />
+      <FAQ />
       <Contact />
       <StickyWhatsApp />
       <MobileStickyBar />
+      <ExitIntentPopup />
     </div>
   );
 }
