@@ -3,7 +3,8 @@ import {
   Zap, Shield, Sparkles, Moon, Phone, MapPin, Clock,
   Star, ChevronDown, Wind, Heart, CheckCircle, XCircle,
   ArrowRight, Package, User, Send, ParkingCircle,
-  Activity, Leaf, Award, Calendar
+  Activity, Leaf, Award, Calendar, MessageCircle, Gift,
+  ChevronUp, Dumbbell, Stethoscope, Smile
 } from "lucide-react";
 
 function useFadeIn() {
@@ -104,60 +105,99 @@ function Nav() {
   );
 }
 
+function AnimatedCounter({ target, suffix = "" }) {
+  const [count, setCount] = useState(0);
+  const [ref, visible] = useFadeIn();
+  useEffect(() => {
+    if (!visible) return;
+    let start = 0;
+    const step = Math.ceil(target / 40);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(start);
+    }, 30);
+    return () => clearInterval(timer);
+  }, [visible, target]);
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
+const PERSONAS = [
+  { id: "sport", icon: Dumbbell, label: "Jestem sportowcem", color: "#F59E0B", bg: "rgba(245,158,11,0.15)", border: "rgba(245,158,11,0.4)" },
+  { id: "rehab", icon: Stethoscope, label: "Wracam po urazie", color: "#10B981", bg: "rgba(16,185,129,0.15)", border: "rgba(16,185,129,0.4)" },
+  { id: "wellness", icon: Smile, label: "Szukam regeneracji", color: "#7DDEFF", bg: "rgba(0,174,239,0.15)", border: "rgba(0,174,239,0.4)" },
+];
+
 function Hero() {
+  const [activePerson, setActivePerson] = useState(null);
   return (
-    <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden", background: "linear-gradient(140deg,#071E3D 0%,#1B3F8A 50%,#0e7abf 100%)", position: "relative" }}>
+    <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden", background: "linear-gradient(140deg,#04122A 0%,#0D2B6B 50%,#0097A7 100%)", position: "relative" }}>
       <style>{`
         @keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
         @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+        @keyframes pulse-ring { 0%{transform:scale(1);opacity:0.7} 100%{transform:scale(1.5);opacity:0} }
         .hidden-mobile { display:flex; }
         @media(max-width:768px){ .hidden-mobile{display:none!important;} .hero-grid{grid-template-columns:1fr!important;} .hero-right{display:none!important;} }
       `}</style>
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "8rem 1.5rem 4rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center", width: "100%" }} className="hero-grid">
         <div>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1.5rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "rgba(0,174,239,0.2)", border: "1px solid rgba(0,174,239,0.4)", color: "#7DDEFF" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1.5rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "rgba(0,151,167,0.25)", border: "1px solid rgba(0,151,167,0.5)", color: "#7DDEFF" }}>
             <Activity size={11} /> Terapia mHBOT – Sosnowiec
           </div>
 
-          <h1 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.9rem,4vw,3.2rem)", lineHeight: 1.2, color: "white", fontWeight: 400, marginBottom: "1.5rem" }}>
-            Odetchnij pełną piersią.{" "}
+          <h1 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.9rem,4vw,3.2rem)", lineHeight: 1.2, color: "white", fontWeight: 400, marginBottom: "1rem" }}>
+            Twoje ciało wie, czego potrzebuje.{" "}
             <span style={{ background: "linear-gradient(90deg,#7DDEFF,#C2EDFF,#7DDEFF)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", animation: "shimmer 4s linear infinite" }}>
-              Regeneracja na poziomie komórkowym.
+              My dajemy mu tlen.
             </span>
           </h1>
 
-          <p style={{ fontSize: "1.1rem", lineHeight: 1.7, color: "rgba(255,255,255,0.72)", maxWidth: 480, marginBottom: "2rem" }}>
-            Profesjonalne zabiegi w komorze hiperbarycznej dla zdrowia, urody i sportu.{" "}
-            <strong style={{ color: "#7DDEFF" }}>al. Zwycięstwa 6, 41-200 Sosnowiec</strong>.
+          <p style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(255,255,255,0.72)", maxWidth: 480, marginBottom: "1.5rem" }}>
+            Mniej bólu, szybsza regeneracja, głębszy sen — od pierwszej sesji.{" "}
+            <strong style={{ color: "#7DDEFF" }}>al. Zwycięstwa 6, Sosnowiec</strong>.
           </p>
 
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "0.75rem 1.25rem", borderRadius: 16, marginBottom: "2rem", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
-            {[1,2,3,4,5].map(i => <Star key={i} size={16} fill="#F59E0B" style={{ color: "#F59E0B" }} />)}
-            <strong style={{ color: "white" }}>5,0</strong>
-            <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.82rem" }}>- 6 opinii Google</span>
+          {/* Persona selector */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: "1.75rem" }}>
+            {PERSONAS.map(p => (
+              <button key={p.id} onClick={() => setActivePerson(activePerson === p.id ? null : p.id)}
+                style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "0.5rem 1rem", borderRadius: 99, fontSize: "0.8rem", fontWeight: 600, cursor: "pointer", border: "1.5px solid", transition: "all 0.2s", background: activePerson === p.id ? p.bg : "transparent", color: activePerson === p.id ? p.color : "rgba(255,255,255,0.65)", borderColor: activePerson === p.id ? p.border : "rgba(255,255,255,0.2)" }}>
+                <p.icon size={13} /> {p.label}
+              </button>
+            ))}
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-            <a href="/rezerwacja" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 700, fontSize: "0.95rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 8px 32px rgba(0,174,239,0.45)", transition: "transform 0.2s" }}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "0.75rem 1.25rem", borderRadius: 16, marginBottom: "1.75rem", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
+            {[1,2,3,4,5].map(i => <Star key={i} size={16} fill="#F59E0B" style={{ color: "#F59E0B" }} />)}
+            <strong style={{ color: "white" }}>5,0</strong>
+            <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.82rem" }}>· 6 opinii Google</span>
+          </div>
+
+          {/* Dual CTA */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: "0.75rem" }}>
+            <a href="/rezerwacja" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 700, fontSize: "0.95rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#0097A7,#1B3F8A)", boxShadow: "0 8px 32px rgba(0,151,167,0.5)", transition: "transform 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
               onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
               <Calendar size={16} /> Zarezerwuj wizytę
             </a>
-            <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "white", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", transition: "background 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-              onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-              <Phone size={16} /> +48 608 531 549
-            </a>
-            <a href="#tlenoterapia" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "rgba(255,255,255,0.7)", textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.color = "white"}
-              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}>
-              Dowiedz się więcej <ChevronDown size={16} />
+            <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "1rem 1.75rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "#7DDEFF", textDecoration: "none", border: "1.5px solid rgba(0,151,167,0.5)", background: "rgba(0,151,167,0.1)", transition: "background 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.background = "rgba(0,151,167,0.2)"}
+              onMouseLeave={e => e.currentTarget.style.background = "rgba(0,151,167,0.1)"}>
+              <MessageCircle size={16} /> Bezpłatna konsultacja 15 min
             </a>
           </div>
+          {/* Microcopy */}
+          <p style={{ fontSize: "0.77rem", color: "rgba(255,255,255,0.4)", marginBottom: "2rem", marginLeft: 4 }}>
+            Pierwsza konsultacja bezpłatna · Bez zobowiązań · Odpowiadamy w 15 min
+          </p>
 
-          <div style={{ display: "flex", gap: 32, marginTop: "3rem", paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-            {[["5", "Ocena Google"], ["15×", "Więcej tlenu"], ["mHBOT", "Certyfikowana komora"]].map(([v, l]) => (
+          <div style={{ display: "flex", gap: 32, paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+            {[
+              { v: "5", l: "Ocena Google" },
+              { v: "15×", l: "Więcej tlenu" },
+              { v: "mHBOT", l: "Certyfikowana komora" },
+            ].map(({ v, l }) => (
               <div key={l}>
                 <div style={{ fontFamily: "Georgia,serif", fontSize: "1.5rem", color: "white", fontWeight: 400 }}>{v}</div>
                 <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.5)", marginTop: 2 }}>{l}</div>
@@ -169,17 +209,27 @@ function Hero() {
         <div className="hero-right" style={{ position: "relative" }}>
           <div style={{ borderRadius: 24, overflow: "hidden", aspectRatio: "4/5", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 32 }}>
-              <div style={{ width: "100%", height: "100%", borderRadius: 16, background: "linear-gradient(180deg,rgba(0,174,239,0.1),rgba(27,63,138,0.3))", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative" }}>
-                <Wind size={64} style={{ color: "rgba(0,174,239,0.7)", animation: "floatUp 4s ease-in-out infinite" }} />
-                <p style={{ color: "rgba(0,174,239,0.9)", marginTop: 16, fontSize: "0.9rem" }}>Komora Hiperbaryczna Śląsk</p>
+              <div style={{ width: "100%", height: "100%", borderRadius: 16, background: "linear-gradient(180deg,rgba(0,151,167,0.12),rgba(27,63,138,0.3))", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative" }}>
+                <div style={{ position: "relative" }}>
+                  <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid rgba(0,151,167,0.4)", animation: "pulse-ring 2s ease-out infinite" }} />
+                  <Wind size={64} style={{ color: "rgba(0,151,167,0.9)", animation: "floatUp 4s ease-in-out infinite" }} />
+                </div>
+                <p style={{ color: "rgba(0,174,239,0.9)", marginTop: 20, fontSize: "0.9rem" }}>Komora Hiperbaryczna Śląsk</p>
                 <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginTop: 4 }}>al. Zwycięstwa 6 – Sosnowiec</p>
-                <div style={{ position: "absolute", top: 16, right: 16, padding: "0.3rem 0.75rem", borderRadius: 99, fontSize: "0.72rem", fontWeight: 600, background: "rgba(0,174,239,0.2)", border: "1px solid rgba(0,174,239,0.35)", color: "#7DDEFF" }}>Certyfikat CE</div>
+                <div style={{ position: "absolute", top: 16, right: 16, padding: "0.3rem 0.75rem", borderRadius: 99, fontSize: "0.72rem", fontWeight: 600, background: "rgba(0,151,167,0.2)", border: "1px solid rgba(0,151,167,0.4)", color: "#7DDEFF" }}>Certyfikat CE</div>
+                {/* Animated stat */}
+                <div style={{ marginTop: 24, padding: "0.75rem 1.5rem", borderRadius: 12, background: "rgba(0,151,167,0.15)", border: "1px solid rgba(0,151,167,0.3)", textAlign: "center" }}>
+                  <div style={{ fontFamily: "Georgia,serif", fontSize: "2rem", color: "#7DDEFF", fontWeight: 400 }}>
+                    <AnimatedCounter target={15} suffix="×" />
+                  </div>
+                  <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.5)", marginTop: 2 }}>więcej tlenu do tkanek</div>
+                </div>
               </div>
             </div>
           </div>
           <div style={{ position: "absolute", bottom: -24, left: -32, padding: "1rem 1.25rem", borderRadius: 16, background: "rgba(255,255,255,0.1)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.15)", minWidth: 200 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ width: 40, height: 40, borderRadius: "50%", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <div style={{ width: 40, height: 40, borderRadius: "50%", background: "linear-gradient(135deg,#0097A7,#1B3F8A)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <CheckCircle size={18} color="white" />
               </div>
               <div>
@@ -191,6 +241,38 @@ function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+function TrustBar() {
+  return (
+    <div style={{ background: "white", borderBottom: "1px solid #EAF0F8", padding: "0.85rem 1.5rem" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "2rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ display: "flex", gap: 2 }}>
+            {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="#F59E0B" style={{ color: "#F59E0B" }} />)}
+          </div>
+          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#071E3D" }}>5,0 Google</span>
+          <span style={{ fontSize: "0.75rem", color: "#8FA5BC" }}>· 6 opinii</span>
+        </div>
+        <div style={{ width: 1, height: 20, background: "#EAF0F8" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.8rem", color: "#4A6580" }}>
+          <Award size={14} style={{ color: "#0097A7" }} /> <strong style={{ color: "#071E3D" }}>Certyfikat CE</strong>
+        </div>
+        <div style={{ width: 1, height: 20, background: "#EAF0F8" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.8rem", color: "#4A6580" }}>
+          <Shield size={14} style={{ color: "#0097A7" }} /> <strong style={{ color: "#071E3D" }}>Normy ISO</strong>
+        </div>
+        <div style={{ width: 1, height: 20, background: "#EAF0F8" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.8rem", color: "#4A6580" }}>
+          <Heart size={14} style={{ color: "#0097A7" }} /> <strong style={{ color: "#071E3D" }}>Ubezpieczenie OC</strong>
+        </div>
+        <div style={{ width: 1, height: 20, background: "#EAF0F8" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.8rem", color: "#4A6580" }}>
+          <Phone size={14} style={{ color: "#0097A7" }} /> Bezpłatna konsultacja: <a href="tel:+48608531549" style={{ color: "#0097A7", fontWeight: 700, textDecoration: "none" }}>608 531 549</a>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -251,8 +333,12 @@ function WhyOxygen() {
             <h2 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.8rem,3.5vw,2.8rem)", color: "#071E3D", fontWeight: 400, lineHeight: 1.25, marginBottom: "1.25rem" }}>
               Dlaczego mHBOT działa?
             </h2>
-            <p style={{ fontSize: "1.05rem", lineHeight: 1.8, color: "#4A6580", maxWidth: 700, margin: "0 auto" }}>
-              W warunkach podwyższonego ciśnienia (np. <strong style={{ color: "#1B3F8A" }}>1.3 – 1.5 ATA</strong>), tlen rozpuszcza się bezpośrednio w osoczu, limfie i płynie mózgowo-rdzeniowym. Do Twoich komórek dociera nawet do <strong style={{ color: "#1B3F8A" }}>15 razy więcej tlenu</strong>, dając potężny impuls do samoleczenia i redukcji stanów zapalnych.
+            <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#4A6580", maxWidth: 700, margin: "0 auto 1rem" }}>
+              Czujesz się ciągle zmęczony, mimo że nic ci nie jest?{" "}
+              <strong style={{ color: "#0097A7" }}>Twoje tkanki mogą być niedotlenione.</strong>
+            </p>
+            <p style={{ fontSize: "1rem", lineHeight: 1.8, color: "#4A6580", maxWidth: 700, margin: "0 auto" }}>
+              Pod podwyższonym ciśnieniem (<strong style={{ color: "#1B3F8A" }}>1.3 – 1.5 ATA</strong>) tlen rozpuszcza się bezpośrednio w osoczu, limfie i płynie mózgowo-rdzeniowym — docierając nawet <strong style={{ color: "#1B3F8A" }}>15 razy więcej</strong> niż przy normalnym oddychaniu.
             </p>
           </div>
         </FadeSection>
@@ -350,20 +436,40 @@ function PricingCard({ p, i }) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}>
         {p.tag && (
-          <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)", padding: "0.25rem 1rem", borderRadius: 99, fontSize: "0.72rem", fontWeight: 700, whiteSpace: "nowrap", color: "white", background: p.featured ? "linear-gradient(90deg,#F59E0B,#FBBF24)" : "linear-gradient(90deg,#00AEEF,#0e7abf)", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
+          <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)", padding: "0.25rem 1rem", borderRadius: 99, fontSize: "0.72rem", fontWeight: 700, whiteSpace: "nowrap", color: "white", background: p.featured ? "linear-gradient(90deg,#F59E0B,#FBBF24)" : "linear-gradient(90deg,#0097A7,#00AEEF)", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
             {p.tag}
           </div>
         )}
-        <div style={{ width: 44, height: 44, borderRadius: 12, background: p.featured ? "rgba(255,255,255,0.12)" : "#EBF4FF", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem" }}>
+        <div style={{ width: 44, height: 44, borderRadius: 12, background: p.featured ? "rgba(255,255,255,0.12)" : "#E0F7FA", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem" }}>
           <p.icon size={20} style={{ color: p.featured ? "#7DDEFF" : p.accent }} />
         </div>
         <h3 style={{ fontWeight: 600, fontSize: "1.1rem", marginBottom: 4, color: p.featured ? "white" : "#071E3D" }}>{p.title}</h3>
         <p style={{ fontSize: "0.875rem", lineHeight: 1.65, color: p.featured ? "rgba(255,255,255,0.6)" : "#607D96", marginBottom: "1.25rem" }}>{p.desc}</p>
-        <div style={{ marginBottom: "1.5rem" }}>
+        <div style={{ marginBottom: p.savings ? "0.75rem" : "1.5rem" }}>
+          {p.originalPrice && (
+            <span style={{ fontSize: "0.85rem", color: p.featured ? "rgba(255,255,255,0.4)" : "#8FA5BC", textDecoration: "line-through", marginRight: 8 }}>{p.originalPrice} zł</span>
+          )}
           <span style={{ fontFamily: "Georgia,serif", fontSize: "2.4rem", color: p.featured ? "white" : "#071E3D", fontWeight: 400 }}>{p.price}</span>
           <span style={{ fontSize: "0.875rem", marginLeft: 6, color: p.featured ? "rgba(255,255,255,0.5)" : "#8FA5BC" }}>{p.unit}</span>
+          {p.perSession && (
+            <div style={{ fontSize: "0.8rem", color: p.featured ? "rgba(255,255,255,0.6)" : "#0097A7", fontWeight: 600, marginTop: 4 }}>
+              = {p.perSession} zł/sesja
+            </div>
+          )}
         </div>
-        <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+        {/* Savings progress bar */}
+        {p.savings && (
+          <div style={{ marginBottom: "1.25rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: p.featured ? "rgba(255,255,255,0.55)" : "#8FA5BC", marginBottom: 6 }}>
+              <span>Oszczędność</span>
+              <span style={{ fontWeight: 700, color: p.featured ? "#7DDEFF" : "#0097A7" }}>-{p.savings} zł</span>
+            </div>
+            <div style={{ height: 6, borderRadius: 99, background: p.featured ? "rgba(255,255,255,0.12)" : "#EAF0F8", overflow: "hidden" }}>
+              <div style={{ height: "100%", borderRadius: 99, background: p.featured ? "linear-gradient(90deg,#7DDEFF,#00AEEF)" : "linear-gradient(90deg,#0097A7,#00AEEF)", width: p.savings === 1250 ? "85%" : "55%" }} />
+            </div>
+          </div>
+        )}
+        <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
           {p.features.map(f => (
             <li key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: "0.875rem", color: p.featured ? "rgba(255,255,255,0.75)" : "#4A6580" }}>
               <CheckCircle size={15} style={{ color: p.featured ? "#7DDEFF" : p.accent, flexShrink: 0 }} />
@@ -372,11 +478,19 @@ function PricingCard({ p, i }) {
           ))}
         </ul>
         <a href="/rezerwacja"
-          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 600, textAlign: "center", textDecoration: "none", background: p.featured ? "linear-gradient(135deg,#00AEEF,#7DDEFF)" : p.accent + "18", color: p.featured ? "white" : p.accent, border: p.featured ? "none" : "1.5px solid " + p.accent + "40", boxSizing: "border-box", transition: "transform 0.2s" }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 600, textAlign: "center", textDecoration: "none", background: p.featured ? "linear-gradient(135deg,#0097A7,#7DDEFF)" : p.accent + "18", color: p.featured ? "white" : p.accent, border: p.featured ? "none" : "1.5px solid " + p.accent + "40", boxSizing: "border-box", transition: "transform 0.2s", marginBottom: 10 }}
           onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}
           onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
           <Calendar size={15} /> {p.cta}
         </a>
+        {!p.originalPrice && (
+          <a href="tel:+48608531549"
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, width: "100%", padding: "0.6rem", borderRadius: 12, fontSize: "0.78rem", fontWeight: 600, textAlign: "center", textDecoration: "none", color: p.featured ? "rgba(255,255,255,0.55)" : "#8FA5BC", boxSizing: "border-box", transition: "color 0.2s" }}
+            onMouseEnter={e => e.currentTarget.style.color = p.featured ? "white" : "#0097A7"}
+            onMouseLeave={e => e.currentTarget.style.color = p.featured ? "rgba(255,255,255,0.55)" : "#8FA5BC"}>
+            <Gift size={13} /> Kup jako prezent
+          </a>
+        )}
       </div>
     </FadeSection>
   );
@@ -384,9 +498,9 @@ function PricingCard({ p, i }) {
 
 function Pricing() {
   const plans = [
-    { icon: User, tag: null, title: "Sesja pojedyncza", price: "130", unit: "zł / 80 min", desc: "Idealna na pierwsze doświadczenie lub jednorazową regenerację.", features: ["80 minut w komorze mHBOT", "Konsultacja wstępna", "Opieka personelu medycznego"], cta: "Zarezerwuj sesję", accent: "#1B3F8A", featured: false },
-    { icon: Package, tag: "Oszczędzasz 200 zł", title: "Pakiet 10 wejsc", price: "1100", unit: "zł / 10 sesji", desc: "Najchętniej wybierany pakiet – pełny cykl regeneracyjny dla trwałych efektów.", features: ["10 x 80 minut", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Bezpłatna konsultacja", "Monitorowanie postępu"], cta: "Wybierz pakiet", accent: "#1B3F8A", featured: true },
-    { icon: Award, tag: "Najlepsza wartość", title: "Pakiet 25 wejsc", price: "2100", unit: "zł / 25 sesji", desc: "Dla osób szukających długofalowych efektów – najkorzystniejsza cena za sesję.", features: ["25 x 80 minut", "Oszczędzasz aż 1 250 zł", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Pełny program regeneracji"], cta: "Wybierz pakiet 25", accent: "#00AEEF", featured: false },
+    { icon: User, tag: null, title: "Sesja próbna", price: "99", originalPrice: "130", unit: "zł / 80 min", desc: "Dla nowych pacjentów — idealna na pierwsze doświadczenie z mHBOT.", features: ["80 minut w komorze mHBOT", "Konsultacja wstępna gratis", "Opieka personelu medycznego", "Tylko dla nowych pacjentów"], cta: "Zarezerwuj sesję próbną", accent: "#1B3F8A", featured: false, perSession: null, savings: null },
+    { icon: Package, tag: "★ NAJPOPULARNIEJSZY", title: "Pakiet 10 sesji", price: "1100", unit: "zł / 10 sesji", desc: "Pełny cykl regeneracyjny dla trwałych efektów — wybierany przez 7 na 10 pacjentów.", features: ["10 × 80 min w komorze mHBOT", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Bezpłatna konsultacja", "Monitorowanie postępu"], cta: "Wybierz pakiet", accent: "#0097A7", featured: true, perSession: 110, savings: 200 },
+    { icon: Award, tag: "Najlepsza cena / sesja", title: "Pakiet 25 sesji", price: "2100", unit: "zł / 25 sesji", desc: "Dla osób szukających długofalowych efektów. 84 zł/sesja — mniej niż wizyta u fizjoterapeuty.", features: ["25 × 80 min w komorze mHBOT", "Oszczędzasz aż 1 250 zł", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Pełny program regeneracji"], cta: "Wybierz pakiet 25", accent: "#00AEEF", featured: false, perSession: 84, savings: 1250 },
   ];
   return (
     <section id="oferta" style={{ padding: "9rem 1.5rem", background: "white" }}>
@@ -410,66 +524,97 @@ function Pricing() {
 }
 
 function Safety() {
-  const items = [
+  const indications = [
+    "Sportowcy i rekonwalescenci po kontuzjach",
+    "Osoby z chorobami przewlekłymi i stanami zapalnymi",
+    "Wsparcie przy boreliozach i chorobach autoimmunologicznych",
+    "Poprawa gojenia ran, blizn i owrzodzeń",
+    "Wsparcie funkcji mózgu i koncentracji",
+    "Ogólna regeneracja i poprawa jakości snu",
+    "Rehabilitacja po operacjach",
+    "Anti-aging i pielęgnacja skóry",
+  ];
+  const contraindications = [
     "Nieleczona odma płucna (pneumothorax)",
-    "Stosowanie niektórych leków chemioterapeutycznych (bleomycyna, cisplatyna)",
-    "Ciąża (I trymestr – wymagana konsultacja lekarska)",
+    "Stosowanie niektórych leków chemioterapeutycznych",
+    "Ciąża (I trymestr – wymagana konsultacja)",
     "Nieleczone choroby ucha środkowego lub zatok",
-    "Aktywne zapalenie płuc lub infekcja górnych dróg oddechowych",
+    "Aktywne zapalenie płuc lub infekcja dróg oddechowych",
     "Ciężka niewydolność serca",
     "Klaustrofobia (oceniana indywidualnie)",
     "Aktywna padaczka bez kontroli farmakologicznej",
   ];
   return (
     <section id="bezpieczenstwo" style={{ padding: "9rem 1.5rem", background: "#F0F6FD" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "4rem", alignItems: "center" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <FadeSection>
-          <div>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1.25rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "#DBEAFE", color: "#1B3F8A" }}>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1.25rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "#E0F7FA", color: "#0097A7" }}>
               <Shield size={12} /> Bezpieczeństwo
             </div>
             <h2 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.6rem,3vw,2.4rem)", color: "#071E3D", fontWeight: 400, lineHeight: 1.3, marginBottom: "1rem" }}>
-              Twoje bezpieczeństwo jest naszym priorytetem
+              Kto może korzystać z mHBOT?
             </h2>
-            <p style={{ lineHeight: 1.75, color: "#4A6580", marginBottom: "1.5rem" }}>
-              Profesjonalna obsługa wyjaśni Ci zalety korzystania z komory i przeprowadzi szczegółowy wywiad zdrowotny przed każdym zabiegiem.
+            <p style={{ lineHeight: 1.75, color: "#4A6580", maxWidth: 600, margin: "0 auto 1.5rem" }}>
+              Przed pierwszą serią zabiegów przeprowadzamy szczegółowy wywiad zdrowotny. Twoje bezpieczeństwo jest naszym priorytetem.
             </p>
-            {[
-              { icon: Heart, text: "Konsultacja medyczna przed każdą serią zabiegów" },
-              { icon: Activity, text: "Monitorowanie saturacji O₂ w czasie rzeczywistym" },
-              { icon: Award, text: "Certyfikat CE · Normy ISO · Ubezpieczenie OC" },
-            ].map(item => (
-              <div key={item.text} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, fontSize: "0.875rem", color: "#1a3a5c" }}>
-                <div style={{ width: 32, height: 32, borderRadius: 8, background: "#DBEAFE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <item.icon size={15} style={{ color: "#1B3F8A" }} />
+            <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+              {[
+                { icon: Heart, text: "Konsultacja przed każdą serią" },
+                { icon: Activity, text: "Monitoring saturacji O₂" },
+                { icon: Award, text: "CE · ISO · OC" },
+              ].map(item => (
+                <div key={item.text} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.5rem 1rem", borderRadius: 99, fontSize: "0.82rem", color: "#1a3a5c", background: "white", border: "1px solid #DBEAFE" }}>
+                  <item.icon size={14} style={{ color: "#0097A7" }} />
+                  {item.text}
                 </div>
-                {item.text}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </FadeSection>
 
-        <FadeSection delay={150}>
-          <div style={{ borderRadius: 20, padding: "1.5rem", background: "white", border: "1px solid #E0ECFA", boxShadow: "0 4px 24px rgba(14,66,120,0.08)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "1.25rem", paddingBottom: "1rem", borderBottom: "1px solid #EAF0F8" }}>
-              <XCircle size={18} style={{ color: "#EF4444" }} />
-              <h3 style={{ fontWeight: 600, color: "#071E3D", fontSize: "0.95rem" }}>Przeciwwskazania bezwzględne i względne</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 24 }}>
+          <FadeSection delay={100}>
+            <div style={{ borderRadius: 20, padding: "1.5rem", background: "white", border: "1.5px solid #D1FAE5", boxShadow: "0 4px 24px rgba(16,185,129,0.06)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "1.25rem", paddingBottom: "1rem", borderBottom: "1px solid #D1FAE5" }}>
+                <CheckCircle size={18} style={{ color: "#10B981" }} />
+                <h3 style={{ fontWeight: 600, color: "#071E3D", fontSize: "0.95rem" }}>✓ Wskazania — dla kogo mHBOT?</h3>
+              </div>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+                {indications.map((c, i) => (
+                  <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: "0.875rem", color: "#4A6580", lineHeight: 1.55 }}>
+                    <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#D1FAE5", border: "1px solid #A7F3D0", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
+                      <span style={{ fontSize: 9, color: "#10B981", fontWeight: 700 }}>✓</span>
+                    </div>
+                    {c}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-              {items.map((c, i) => (
-                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: "0.875rem", color: "#4A6580", lineHeight: 1.55 }}>
-                  <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#FEF2F2", border: "1px solid #FECACA", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-                    <span style={{ fontSize: 9, color: "#EF4444", fontWeight: 700 }}>x</span>
-                  </div>
-                  {c}
-                </li>
-              ))}
-            </ul>
-            <p style={{ fontSize: "0.75rem", marginTop: "1.25rem", paddingTop: "1rem", borderTop: "1px solid #EAF0F8", color: "#8FA5BC", lineHeight: 1.6 }}>
-              Lista nie jest wyczerpująca. Ostateczną kwalifikację przeprowadza personel Komory Hiperbarycznej Śląsk Sosnowiec (mHBOT).
-            </p>
-          </div>
-        </FadeSection>
+          </FadeSection>
+
+          <FadeSection delay={200}>
+            <div style={{ borderRadius: 20, padding: "1.5rem", background: "white", border: "1px solid #E0ECFA", boxShadow: "0 4px 24px rgba(14,66,120,0.08)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "1.25rem", paddingBottom: "1rem", borderBottom: "1px solid #EAF0F8" }}>
+                <XCircle size={18} style={{ color: "#F59E0B" }} />
+                <h3 style={{ fontWeight: 600, color: "#071E3D", fontSize: "0.95rem" }}>ℹ Skonsultuj z lekarzem</h3>
+              </div>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+                {contraindications.map((c, i) => (
+                  <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: "0.875rem", color: "#4A6580", lineHeight: 1.55 }}>
+                    <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#FFFBEB", border: "1px solid #FDE68A", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
+                      <span style={{ fontSize: 9, color: "#D97706", fontWeight: 700 }}>!</span>
+                    </div>
+                    {c}
+                  </li>
+                ))}
+              </ul>
+              <p style={{ fontSize: "0.75rem", marginTop: "1.25rem", paddingTop: "1rem", borderTop: "1px solid #EAF0F8", color: "#8FA5BC", lineHeight: 1.6 }}>
+                Lista nie jest wyczerpująca. Kwalifikację przeprowadza personel Komory Hiperbarycznej Śląsk.
+              </p>
+            </div>
+          </FadeSection>
+        </div>
       </div>
     </section>
   );
@@ -651,16 +796,114 @@ function Contact() {
   );
 }
 
+function FAQ() {
+  const items = [
+    { q: "Czy poczuję klaustrofobię?", a: "Komora mHBOT jest przestronna i wygodna — większość pacjentów szybko się relaksuje. Personel jest przy Tobie przez cały czas, a na każde życzenie sesję można zatrzymać." },
+    { q: "Czy potrzebuję skierowania lekarskiego?", a: "Nie — korzystanie z mHBOT nie wymaga skierowania. Przed pierwszą serią przeprowadzamy bezpłatny wywiad zdrowotny." },
+    { q: "Ile sesji potrzeba, żeby poczuć efekty?", a: "Większość pacjentów odczuwa poprawę energii i snu już po 2–3 sesjach. Pełne efekty regeneracyjne pojawiają się po cyklu 10 sesji." },
+    { q: "Jak długo trwa jedna sesja?", a: "Sesja trwa 80 minut — czas komfortowego przebywania w komorze, dobrany pod kątem optymalnej absorpcji tlenu." },
+    { q: "Czy mHBOT jest bezpieczne?", a: "Tak — przy braku przeciwwskazań terapia jest całkowicie bezpieczna. Posiadamy certyfikat CE, normy ISO i ubezpieczenie OC. Każda sesja odbywa się pod nadzorem personelu." },
+  ];
+  const [open, setOpen] = useState(null);
+  return (
+    <section style={{ padding: "7rem 1.5rem", background: "#F8FBFF" }}>
+      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+        <FadeSection>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "#EBF4FF", color: "#1B3F8A" }}>
+              Najczęstsze pytania
+            </div>
+            <h2 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.6rem,3vw,2.2rem)", color: "#071E3D", fontWeight: 400 }}>FAQ</h2>
+          </div>
+        </FadeSection>
+        {items.map((item, i) => (
+          <FadeSection key={i} delay={i * 60}>
+            <div style={{ borderRadius: 16, marginBottom: 12, background: "white", border: "1px solid #EAF0F8", overflow: "hidden", transition: "box-shadow 0.2s", boxShadow: open === i ? "0 8px 32px rgba(14,66,120,0.1)" : "none" }}>
+              <button onClick={() => setOpen(open === i ? null : i)}
+                style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 1.5rem", background: "none", border: "none", cursor: "pointer", textAlign: "left", gap: 16 }}>
+                <span style={{ fontWeight: 600, fontSize: "0.95rem", color: "#071E3D" }}>{item.q}</span>
+                <div style={{ flexShrink: 0, transition: "transform 0.2s", transform: open === i ? "rotate(180deg)" : "rotate(0)" }}>
+                  <ChevronDown size={18} style={{ color: "#0097A7" }} />
+                </div>
+              </button>
+              {open === i && (
+                <div style={{ padding: "0 1.5rem 1.25rem", fontSize: "0.9rem", lineHeight: 1.75, color: "#4A6580", borderTop: "1px solid #EAF0F8", paddingTop: "1rem" }}>
+                  {item.a}
+                </div>
+              )}
+            </div>
+          </FadeSection>
+        ))}
+        <FadeSection delay={350}>
+          <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
+            <p style={{ color: "#8FA5BC", fontSize: "0.9rem", marginBottom: "1rem" }}>Masz inne pytania?</p>
+            <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.875rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#0097A7,#1B3F8A)", boxShadow: "0 6px 20px rgba(0,151,167,0.35)" }}>
+              <Phone size={15} /> Zadzwoń: +48 608 531 549
+            </a>
+          </div>
+        </FadeSection>
+      </div>
+    </section>
+  );
+}
+
+function StickyWhatsApp() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const h = () => setVisible(window.scrollY > 300);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+  return (
+    <a href="tel:+48608531549"
+      title="Odpiszemy w 15 min"
+      style={{
+        position: "fixed", bottom: 96, right: 24, zIndex: 100,
+        width: 56, height: 56, borderRadius: "50%",
+        background: "linear-gradient(135deg,#0097A7,#1B3F8A)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        boxShadow: "0 6px 24px rgba(0,151,167,0.5)",
+        textDecoration: "none", opacity: visible ? 1 : 0,
+        transform: visible ? "scale(1)" : "scale(0.7)",
+        transition: "opacity 0.3s, transform 0.3s",
+        pointerEvents: visible ? "all" : "none",
+      }}>
+      <Phone size={22} color="white" />
+      <div style={{ position: "absolute", top: -8, right: -8, width: 20, height: 20, borderRadius: "50%", background: "#F59E0B", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem", fontWeight: 700, color: "white" }}>15'</div>
+    </a>
+  );
+}
+
+function MobileStickyBar() {
+  return (
+    <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 99, display: "none" }} className="mobile-sticky-bar">
+      <style>{`.mobile-sticky-bar { display:none!important; } @media(max-width:768px){ .mobile-sticky-bar{display:flex!important;} }`}</style>
+      <div style={{ display: "flex", width: "100%", borderTop: "1px solid #EAF0F8", background: "white", boxShadow: "0 -4px 24px rgba(14,66,120,0.12)" }}>
+        <a href="tel:+48608531549" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "1rem", fontWeight: 600, fontSize: "0.875rem", color: "#1B3F8A", textDecoration: "none", borderRight: "1px solid #EAF0F8" }}>
+          <Phone size={16} /> Zadzwoń
+        </a>
+        <a href="/rezerwacja" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "1rem", fontWeight: 700, fontSize: "0.875rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#0097A7,#1B3F8A)" }}>
+          <Calendar size={16} /> Zarezerwuj
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <div style={{ fontFamily: "'Segoe UI',system-ui,sans-serif", overflowX: "hidden" }}>
       <Nav />
       <Hero />
+      <TrustBar />
       <WhyOxygen />
       <Pricing />
+      <FAQ />
       <Safety />
       <Testimonials />
       <Contact />
+      <StickyWhatsApp />
+      <MobileStickyBar />
     </div>
   );
 }
