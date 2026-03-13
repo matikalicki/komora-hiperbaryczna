@@ -167,6 +167,29 @@ function Hero() {
               Dowiedz się więcej <ChevronDown size={16} />
             </a>
           </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: "1.5rem" }}>
+            <span style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.4)", alignSelf: "center" }}>Kim jesteś?</span>
+            {[
+              { label: "💪 Jestem sportowcem", id: "sport" },
+              { label: "💆 Szukam relaksu", id: "wellness" },
+              { label: "✨ Dbam o urodę", id: "beauty" },
+              { label: "🏥 Mam problem zdrowotny", id: "zdrowie" },
+            ].map(({ label, id }) => (
+              <button key={id} onClick={() => {
+                const el = document.getElementById("card-" + id);
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "center" });
+                  el.style.outline = "3px solid #00AEEF";
+                  el.style.boxShadow = "0 0 0 6px rgba(0,174,239,0.25)";
+                  setTimeout(() => { el.style.outline = "none"; el.style.boxShadow = "0 2px 16px rgba(14,66,120,0.06)"; }, 2000);
+                }
+              }} style={{ padding: "0.45rem 1rem", borderRadius: 99, fontSize: "0.78rem", fontWeight: 500, color: "rgba(255,255,255,0.8)", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)", cursor: "pointer", transition: "background 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.15)"}
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}>
+                {label}
+              </button>
+            ))}
+          </div>
 
           <div style={{ display: "flex", gap: 32, marginTop: "3rem", paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
             {[["5", "Ocena Google"], ["15×", "Więcej tlenu"], ["mHBOT", "Certyfikowana komora"]].map(([v, l]) => (
@@ -287,11 +310,12 @@ function WhyOxygen() {
           {benefits.map((b, i) => (
             <FadeSection key={b.title} delay={i * 80}>
               <div
+                id={"card-" + ["sport","zdrowie","beauty","wellness"][i]}
                 style={{
                   padding: "1.75rem", borderRadius: 20, background: "white",
                   border: "1px solid #EAF0F8",
                   boxShadow: "0 2px 16px rgba(14,66,120,0.06)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease, outline 0.3s",
                   cursor: "default", height: "100%", boxSizing: "border-box",
                 }}
                 onMouseEnter={e => {
@@ -492,7 +516,7 @@ function Safety() {
 
 function Testimonials() {
   const reviews = [
-    { name: "Szymon Dziechciarz", initials: "Sz", role: "Biegacz", stars: 5, date: "3 miesiace temu", text: "Jako biegacz zauważyłam znaczący wzrost wydolności płuc. Oddechy są głębsze, a długie dystanse pokonuję ze znacznie mniejszym wysiłkiem niż wcześniej. Niesamowite efekty!" },
+    { name: "Szymon Dziechciarz", initials: "Sz", role: "Biegacz", stars: 5, date: "3 miesiące temu", text: "Jako biegacz zauważyłem znaczący wzrost wydolności płuc. Oddechy są głębsze, a długie dystanse pokonuję ze znacznie mniejszym wysiłkiem niż wcześniej. Niesamowite efekty!" },
     { name: "Dawid Ryndak", initials: "D", role: "Klient gabinetu", stars: 5, date: "3 lata temu", text: "Super miejsce dostępne w mieście. Profesjonalna obsługa wyjaśni zalety korzystania z komory. Polecam każdemu, kto szuka skutecznej metody regeneracji." },
     { name: "Joanna Gwіzdala", initials: "J", role: "Stala klientka", stars: 5, date: "5 lat temu", text: "Świetny sposób regeneracji po długim i męczącym dniu. Polecam zajrzeć. Obsługa przemiła – od razu czujesz się zaopiekowany i w dobrych rękach." },
   ];
@@ -543,20 +567,54 @@ function Testimonials() {
   );
 }
 
+const EMAILJS_SERVICE = "service_69ji9tb";
+const EMAILJS_TEMPLATE_CONTACT = "template_6s7aatj";
+const EMAILJS_KEY = "7dkS7I0LMk52DKooI";
+
 function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", msg: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  function validate() {
+    const e = {};
+    if (!form.name.trim()) e.name = "Podaj imię i nazwisko";
+    if (!form.phone.trim()) e.phone = "Podaj numer telefonu";
+    if (!form.msg.trim()) e.msg = "Wpisz treść wiadomości";
+    return e;
+  }
+
+  async function handleSend() {
+    const e = validate();
+    if (Object.keys(e).length) { setErrors(e); return; }
+    setSending(true);
+    try {
+      const emailjs = await import("@emailjs/browser");
+      await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE_CONTACT, {
+        name: form.name, phone: form.phone,
+        email: form.email || "nie podano",
+        message: form.msg,
+      }, EMAILJS_KEY);
+      setSent(true);
+    } catch(err) {
+      console.error(err);
+      alert("Błąd wysyłki. Zadzwoń: +48 608 531 549");
+    } finally {
+      setSending(false);
+    }
+  }
   const hours = [
-    ["Poniedzialek", "09:00 - 18:00"], ["Wtorek", "09:00 - 18:00"],
-    ["Sroda", "09:00 - 18:00"], ["Czwartek", "09:00 - 18:00"],
-    ["Piatek", "09:00 - 18:00"], ["Sobota", "10:00 - 15:00"], ["Niedziela", "Zamkniete"],
+    ["Poniedziałek", "09:00 - 18:00"], ["Wtorek", "09:00 - 18:00"],
+    ["Środa", "09:00 - 18:00"], ["Czwartek", "09:00 - 18:00"],
+    ["Piątek", "09:00 - 18:00"], ["Sobota", "10:00 - 15:00"], ["Niedziela", "Zamknięte"],
   ];
   return (
     <section id="kontakt" style={{ background: "#071E3D" }}>
       <div style={{ padding: "4rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "2.5rem" }}>
           {[
-            { icon: MapPin, title: "Adres", lines: ["al. Zwyciestwa 6", "41-200 Sosnowiec", "woj. slaskie"] },
+            { icon: MapPin, title: "Adres", lines: ["al. Zwycięstwa 6", "41-200 Sosnowiec", "woj. śląskie"] },
             { icon: Phone, title: "Telefon", lines: ["+48 608 531 549"] },
           ].map((item, i) => (
             <FadeSection key={item.title} delay={i * 80}>
@@ -576,8 +634,8 @@ function Contact() {
               </div>
               <h4 style={{ fontWeight: 600, fontSize: "0.875rem", color: "white", marginBottom: "0.5rem" }}>Godziny otwarcia</h4>
               {hours.map(([d, h]) => (
-                <div key={d} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", gap: 16, color: h === "Zamkniete" ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.65)", marginBottom: 4 }}>
-                  <span>{d}</span><span style={{ color: h === "Zamkniete" ? "rgba(255,255,255,0.3)" : "#7DDEFF", fontWeight: 600 }}>{h}</span>
+                <div key={d} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", gap: 16, color: h === "Zamknięte" ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.65)", marginBottom: 4 }}>
+                  <span>{d}</span><span style={{ color: h === "Zamknięte" ? "rgba(255,255,255,0.3)" : "#7DDEFF", fontWeight: 600 }}>{h}</span>
                 </div>
               ))}
             </div>
@@ -605,7 +663,7 @@ function Contact() {
             <div>
               <h3 style={{ fontFamily: "Georgia,serif", fontSize: "1.2rem", color: "white", fontWeight: 400, marginBottom: "1.25rem" }}>Znajdź nas na mapie</h3>
               <div style={{ borderRadius: 20, overflow: "hidden", height: 360 }}>
-                <iframe title="Mapa" src="https://www.google.com/maps?q=al.+Zwycistwa+6,+41-200+Sosnowiec,+Polska&output=embed" width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
+                <iframe title="Mapa" src="https://www.google.com/maps?q=al.+Zwyci%C4%99stwa+6,+41-200+Sosnowiec,+Polska&output=embed" width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
               </div>
             </div>
           </FadeSection>
@@ -623,19 +681,25 @@ function Contact() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                     {[["name","Imię i nazwisko"],["phone","Numer telefonu"]].map(([k, ph]) => (
-                      <input key={k} placeholder={ph} value={form[k]} onChange={e => setForm({...form,[k]:e.target.value})}
-                        style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", boxSizing: "border-box" }} />
+                      <div key={k}>
+                        <input placeholder={ph} value={form[k]} onChange={e => { setForm({...form,[k]:e.target.value}); setErrors({...errors,[k]:""}); }}
+                          style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: errors[k] ? "1px solid #EF4444" : "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", boxSizing: "border-box" }} />
+                        {errors[k] && <p style={{ margin: "4px 0 0", fontSize: "0.72rem", color: "#FCA5A5" }}>{errors[k]}</p>}
+                      </div>
                     ))}
                   </div>
-                  <input placeholder="Adres e-mail" value={form.email} onChange={e => setForm({...form,email:e.target.value})}
+                  <input placeholder="Adres e-mail (opcjonalnie)" value={form.email} onChange={e => setForm({...form,email:e.target.value})}
                     style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", boxSizing: "border-box" }} />
-                  <textarea rows={4} placeholder="Treść wiadomości lub preferowany termin..." value={form.msg} onChange={e => setForm({...form,msg:e.target.value})}
-                    style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", resize: "none", boxSizing: "border-box" }} />
-                  <button onClick={() => setSent(true)}
-                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "1rem", borderRadius: 12, fontWeight: 600, fontSize: "0.875rem", color: "white", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", border: "none", cursor: "pointer", boxShadow: "0 6px 24px rgba(0,174,239,0.35)", transition: "transform 0.2s" }}
-                    onMouseEnter={e => e.currentTarget.style.transform = "scale(1.02)"}
+                  <div>
+                    <textarea rows={4} placeholder="Treść wiadomości lub preferowany termin..." value={form.msg} onChange={e => { setForm({...form,msg:e.target.value}); setErrors({...errors,msg:""}); }}
+                      style={{ borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", background: "rgba(255,255,255,0.06)", border: errors.msg ? "1px solid #EF4444" : "1px solid rgba(255,255,255,0.1)", color: "white", outline: "none", width: "100%", resize: "none", boxSizing: "border-box" }} />
+                    {errors.msg && <p style={{ margin: "4px 0 0", fontSize: "0.72rem", color: "#FCA5A5" }}>{errors.msg}</p>}
+                  </div>
+                  <button onClick={handleSend} disabled={sending}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "1rem", borderRadius: 12, fontWeight: 600, fontSize: "0.875rem", color: "white", background: sending ? "rgba(0,174,239,0.5)" : "linear-gradient(135deg,#00AEEF,#1B3F8A)", border: "none", cursor: sending ? "not-allowed" : "pointer", boxShadow: "0 6px 24px rgba(0,174,239,0.35)", transition: "transform 0.2s" }}
+                    onMouseEnter={e => { if(!sending) e.currentTarget.style.transform = "scale(1.02)"; }}
                     onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-                    <Send size={16} /> Wyślij wiadomość
+                    <Send size={16} /> {sending ? "Wysyłanie..." : "Wyślij wiadomość"}
                   </button>
                   <a href="tel:+48608531549" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "0.875rem", borderRadius: 12, fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.7)", textDecoration: "none", border: "1px solid rgba(255,255,255,0.12)", transition: "background 0.2s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}
@@ -666,15 +730,134 @@ function Contact() {
   );
 }
 
+
+function FAQ() {
+  const [open, setOpen] = useState(null);
+  const faqs = [
+    { q: "Czy zabiegi mHBOT są bezpieczne?", a: "Tak. Terapia w komorach miękkich (1.3–1.5 ATA) jest bezpieczna i nie wymaga skierowania lekarskiego. Przed każdym zabiegiem przeprowadzamy szczegółowy wywiad zdrowotny." },
+    { q: "Ile trwa jedna sesja?", a: "Jedna sesja trwa 80 minut. Zalecamy, aby przed pierwszą wizytą zjawić się kilka minut wcześniej na krótką konsultację." },
+    { q: "Ile sesji potrzebuję?", a: "To zależy od celu. Pierwsze efekty odczuwalne są już po 3–5 sesjach. Dla trwałych rezultatów rekomendujemy pakiet 10 lub 25 sesji." },
+    { q: "Czy mogę przyjść bez skierowania?", a: "Tak, nie wymagamy skierowania lekarskiego. Wystarczy rezerwacja — możesz ją wykonać online lub telefonicznie." },
+    { q: "Jak się przygotować do zabiegu?", a: "Przyjdź w wygodnym ubraniu. Unikaj alkoholu i intensywnego wysiłku fizycznego na 2 godziny przed sesją. Warto być nawodnionym." },
+    { q: "Czy komora jest odpowiednia dla dzieci?", a: "Terapia może być stosowana u dzieci, jednak wymaga indywidualnej konsultacji z naszym personelem przed pierwszą sesją." },
+  ];
+  return (
+    <section id="faq" style={{ padding: "6rem 1.5rem", background: "#F8FBFF" }}>
+      <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        <FadeSection>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.4rem 1rem", borderRadius: 99, marginBottom: "1.25rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", background: "#EBF4FF", color: "#1B3F8A" }}>
+              <CheckCircle size={12} /> Najczęstsze pytania
+            </div>
+            <h2 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.8rem,3.5vw,2.6rem)", color: "#071E3D", fontWeight: 400 }}>FAQ</h2>
+          </div>
+        </FadeSection>
+        {faqs.map((f, i) => (
+          <FadeSection key={i} delay={i * 60}>
+            <div style={{ borderBottom: "1px solid #EAF0F8", overflow: "hidden" }}>
+              <button onClick={() => setOpen(open === i ? null : i)}
+                style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 0", background: "none", border: "none", cursor: "pointer", textAlign: "left", gap: 16 }}>
+                <span style={{ fontWeight: 600, color: "#071E3D", fontSize: "0.95rem", lineHeight: 1.4 }}>{f.q}</span>
+                <ChevronDown size={18} style={{ color: "#00AEEF", flexShrink: 0, transform: open === i ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.3s" }} />
+              </button>
+              {open === i && (
+                <p style={{ margin: "0 0 1.25rem", fontSize: "0.875rem", color: "#4A6580", lineHeight: 1.75 }}>{f.a}</p>
+              )}
+            </div>
+          </FadeSection>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ExitIntentPopup() {
+  const [show, setShow] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const shown = useRef(false);
+
+  useEffect(() => {
+    function handleMouseLeave(e) {
+      if (e.clientY <= 0 && !shown.current) {
+        shown.current = true;
+        setTimeout(() => setShow(true), 200);
+      }
+    }
+    document.addEventListener("mouseleave", handleMouseLeave);
+    return () => document.removeEventListener("mouseleave", handleMouseLeave);
+  }, []);
+
+  async function handleSend() {
+    if (!phone.trim()) return;
+    setSending(true);
+    try {
+      const emailjs = await import("@emailjs/browser");
+      await emailjs.send("service_69ji9tb", "template_6s7aatj", {
+        name: "Exit Intent",
+        phone: phone,
+        email: "nie podano",
+        message: "Prośba o oddzwonienie z pop-up exit intent",
+      }, "7dkS7I0LMk52DKooI");
+      setSent(true);
+    } catch(e) { console.error(e); }
+    finally { setSending(false); }
+  }
+
+  if (!show) return null;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(7,30,61,0.75)", backdropFilter: "blur(6px)" }}
+      onClick={e => { if (e.target === e.currentTarget) setShow(false); }}>
+      <div style={{ background: "white", borderRadius: 24, padding: "2.5rem", maxWidth: 420, width: "90%", boxShadow: "0 32px 80px rgba(7,30,61,0.3)", position: "relative", animation: "popIn 0.35s cubic-bezier(0.34,1.56,0.64,1)" }}>
+        <style>{`@keyframes popIn { from { opacity:0; transform:scale(0.85); } to { opacity:1; transform:scale(1); } }`}</style>
+        <button onClick={() => setShow(false)} style={{ position: "absolute", top: 16, right: 16, background: "none", border: "none", cursor: "pointer", color: "#8FA5BC", fontSize: 20, lineHeight: 1 }}>✕</button>
+        {sent ? (
+          <div style={{ textAlign: "center", padding: "1rem 0" }}>
+            <CheckCircle size={48} style={{ color: "#10B981", marginBottom: 16 }} />
+            <h3 style={{ fontFamily: "Georgia,serif", color: "#071E3D", marginBottom: 8 }}>Oddzwonimy wkrótce!</h3>
+            <p style={{ color: "#4A6580", fontSize: "0.9rem" }}>Zwykle kontaktujemy się w ciągu 15 minut w godzinach otwarcia.</p>
+          </div>
+        ) : (
+          <>
+            <div style={{ width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg,#EBF4FF,#DBEAFE)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem" }}>
+              <Phone size={24} style={{ color: "#1B3F8A" }} />
+            </div>
+            <h3 style={{ fontFamily: "Georgia,serif", fontSize: "1.4rem", color: "#071E3D", fontWeight: 400, marginBottom: "0.5rem", lineHeight: 1.3 }}>Zostaw numer — oddzwonimy w 15 min</h3>
+            <p style={{ color: "#4A6580", fontSize: "0.875rem", lineHeight: 1.6, marginBottom: "1.5rem" }}>Masz pytania o terapię? Nasz specjalista oddzwoni i odpowie na wszystko bezpłatnie.</p>
+            <div style={{ display: "flex", gap: 10 }}>
+              <input
+                placeholder="Twój numer telefonu"
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && handleSend()}
+                style={{ flex: 1, borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.875rem", border: "1.5px solid #DBEAFE", outline: "none", color: "#071E3D", background: "#F8FBFF" }}
+              />
+              <button onClick={handleSend} disabled={sending}
+                style={{ padding: "0.75rem 1.25rem", borderRadius: 12, fontWeight: 700, fontSize: "0.875rem", color: "white", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", border: "none", cursor: sending ? "not-allowed" : "pointer", whiteSpace: "nowrap", opacity: sending ? 0.7 : 1 }}>
+                {sending ? "..." : "Wyślij"}
+              </button>
+            </div>
+            <p style={{ fontSize: "0.72rem", color: "#8FA5BC", marginTop: "0.75rem", textAlign: "center" }}>Nie spamujemy. Zadzwonimy tylko raz.</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <div style={{ fontFamily: "'Segoe UI',system-ui,sans-serif", overflowX: "hidden" }}>
+      <ExitIntentPopup />
       <Nav />
       <Hero />
       <WhyOxygen />
       <Pricing />
       <Safety />
       <Testimonials />
+      <FAQ />
       <Contact />
     </div>
   );

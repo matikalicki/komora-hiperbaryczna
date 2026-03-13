@@ -90,14 +90,13 @@ function PostView({ post, onBack }) {
 
       {/* CTA */}
       <div style={{ marginTop: "3rem", padding: "2rem", borderRadius: 20, background: "linear-gradient(135deg,#071E3D,#1B3F8A)", textAlign: "center" }}>
-        <p style={{ color: "rgba(255,255,255,0.8)", marginBottom: "0.5rem", fontSize: "0.95rem" }}>Chcesz spróbować terapii mHBOT?</p>
-        <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: "1.25rem", fontSize: "0.82rem" }}>Sesja próbna już od 99 zł · Pakiet 10 sesji = 110 zł/sesja</p>
+        <p style={{ color: "rgba(255,255,255,0.8)", marginBottom: "1rem", fontSize: "0.95rem" }}>Chcesz spróbować terapii mHBOT?</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
-          <a href="/#oferta" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.875rem 2rem", borderRadius: 99, fontWeight: 700, fontSize: "0.875rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#0e7abf)", boxShadow: "0 6px 20px rgba(0,174,239,0.4)" }}>
-            Sprawdź cennik i pakiety <ChevronRight size={15} />
+          <a href="/#oferta" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.875rem 2rem", borderRadius: 99, fontWeight: 700, fontSize: "0.875rem", color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 6px 20px rgba(0,174,239,0.4)" }}>
+            Zobacz cennik
           </a>
-          <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.875rem 1.5rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "rgba(255,255,255,0.8)", textDecoration: "none", border: "1px solid rgba(255,255,255,0.25)" }}>
-            <Phone size={15} /> 608 531 549
+          <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.875rem 2rem", borderRadius: 99, fontWeight: 600, fontSize: "0.875rem", color: "#1B3F8A", textDecoration: "none", border: "1.5px solid #DBEAFE", background: "white" }}>
+            <Phone size={15} /> +48 608 531 549
           </a>
         </div>
       </div>
