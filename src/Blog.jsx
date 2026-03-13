@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, ArrowRight, Clock, Tag, Calendar, Search, ChevronRight, Wind, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, Tag, Calendar, Search, ChevronRight, Phone } from "lucide-react";
 
-const LOGO_SRC = ""; // zostanie podmienione
+// Logo shared with main landing page
+import { LOGO_SRC } from "./logo.js";
 
 const CATEGORY_COLORS = {
   "Edukacja": { bg: "#EBF4FF", color: "#1B3F8A" },
@@ -133,16 +134,14 @@ export default function Blog() {
       {/* Nav */}
       <header style={{ background: "rgba(255,255,255,0.96)", backdropFilter: "blur(12px)", boxShadow: "0 1px 30px rgba(14,66,120,0.08)", position: "sticky", top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "1rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <a href="" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-            <div style={{ width: 36, height: 36, borderRadius: 8, background: "linear-gradient(135deg,#1B3F8A,#00AEEF)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Wind size={18} color="white" />
-            </div>
+          <a href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+            <img src={LOGO_SRC} alt="Komora Hiperbaryczna" style={{ width: 42, height: 42, borderRadius: 8, objectFit: "contain" }} />
             <div>
               <div style={{ fontFamily: "Georgia,serif", fontWeight: 700, fontSize: "0.9rem", color: "#1B3F8A" }}>Komora Hiperbaryczna</div>
               <div style={{ fontSize: "0.65rem", fontWeight: 600, color: "#00AEEF", letterSpacing: 2 }}>BLOG</div>
             </div>
           </a>
-          <a href="" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "0.6rem 1.25rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 600, color: "#1B3F8A", background: "#EBF4FF", textDecoration: "none" }}>
+          <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "0.6rem 1.25rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 600, color: "#1B3F8A", background: "#EBF4FF", textDecoration: "none" }}>
             <ArrowLeft size={14} /> Strona główna
           </a>
         </div>

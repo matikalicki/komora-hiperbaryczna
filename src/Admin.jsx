@@ -125,6 +125,14 @@ export default function Admin() {
 
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "2rem 1.5rem" }}>
 
+        {/* localStorage warning */}
+        <div style={{ background: "#FEF3C7", border: "1px solid #FDE68A", borderRadius: 12, padding: "0.875rem 1.25rem", marginBottom: "1.5rem", display: "flex", alignItems: "flex-start", gap: 10 }}>
+          <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>⚠️</span>
+          <div style={{ fontSize: "0.82rem", color: "#92400E", lineHeight: 1.55 }}>
+            <strong>Dane lokalne.</strong> Rezerwacje są zapisane w pamięci tej przeglądarki (localStorage). Każda przeglądarka widzi tylko swoje dane. Sprawdzaj również skrzynkę e-mail — wszystkie rezerwacje są wysyłane przez EmailJS.
+          </div>
+        </div>
+
         {/* Stat cards */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: 16, marginBottom: "2rem" }}>
           {[
