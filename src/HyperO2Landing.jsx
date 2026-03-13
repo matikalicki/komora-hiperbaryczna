@@ -55,51 +55,63 @@ function Nav() {
   return (
     <header style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-      background: scrolled ? "rgba(255,255,255,0.96)" : "transparent",
-      backdropFilter: scrolled ? "blur(12px)" : "none",
+      background: scrolled ? "rgba(255,255,255,0.96)" : "rgba(7,30,61,0.6)",
+      backdropFilter: "blur(12px)",
       boxShadow: scrolled ? "0 1px 30px rgba(14,66,120,0.08)" : "none",
       transition: "all 0.5s ease",
     }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "1rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Logo size={40} />
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0.75rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        
+        {/* Logo */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <Logo size={32} />
           <div>
-            <div style={{ fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "0.95rem", color: "#1B3F8A", lineHeight: 1.2 }}>Komora Hiperbaryczna</div>
-            <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "#00AEEF", letterSpacing: 2 }}>ŚLĄSK – SOSNOWIEC</div>
+            <div style={{ fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "0.8rem", color: scrolled ? "#1B3F8A" : "white", lineHeight: 1.2 }}>Komora Hiperbaryczna</div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 600, color: "#00AEEF", letterSpacing: 2 }}>ŚLĄSK – SOSNOWIEC</div>
           </div>
         </div>
-        <nav style={{ display: "flex", gap: 32, alignItems: "center" }} className="hidden-mobile">
+
+        {/* Desktop nav */}
+        <nav style={{ display: "flex", gap: 24, alignItems: "center" }} className="hidden-mobile">
           {links.map(l => (
             <a key={l} href={"#" + l.toLowerCase()}
-              style={{ fontSize: "0.875rem", fontWeight: 500, color: scrolled ? "#1a3a5c" : "rgba(255,255,255,0.9)", textDecoration: "none", transition: "opacity 0.2s" }}
+              style={{ fontSize: "0.8rem", fontWeight: 500, color: scrolled ? "#1a3a5c" : "rgba(255,255,255,0.9)", textDecoration: "none", transition: "opacity 0.2s" }}
               onMouseEnter={e => e.target.style.opacity = "0.6"}
               onMouseLeave={e => e.target.style.opacity = "1"}
             >{l}</a>
           ))}
-          <a href="/blog"
-            style={{ fontSize: "0.875rem", fontWeight: 700, color: scrolled ? "#1B3F8A" : "#7DDEFF", textDecoration: "none", transition: "opacity 0.2s", borderBottom: "2px solid currentColor", paddingBottom: 2 }}
-            onMouseEnter={e => e.target.style.opacity = "0.7"}
-            onMouseLeave={e => e.target.style.opacity = "1"}
-          >Blog</a>
-          <a href="/rezerwacja"
-            style={{ fontSize: "0.875rem", fontWeight: 700, color: scrolled ? "#00AEEF" : "#7DDEFF", textDecoration: "none", transition: "opacity 0.2s", borderBottom: "2px solid currentColor", paddingBottom: 2 }}
-            onMouseEnter={e => e.target.style.opacity = "0.7"}
-            onMouseLeave={e => e.target.style.opacity = "1"}
-          >Rezerwacja</a>
+          <a href="/blog" style={{ fontSize: "0.8rem", fontWeight: 700, color: scrolled ? "#1B3F8A" : "#7DDEFF", textDecoration: "none", borderBottom: "2px solid currentColor", paddingBottom: 2 }}>Blog</a>
         </nav>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <a href="tel:+48608531549" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "0.6rem 1rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 600, color: scrolled ? "#1B3F8A" : "rgba(255,255,255,0.85)", textDecoration: "none", border: scrolled ? "1.5px solid #DBEAFE" : "1.5px solid rgba(255,255,255,0.3)", transition: "all 0.2s" }}
+
+        {/* Right side buttons */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {/* Phone — only on desktop */}
+          <a href="tel:+48608531549" className="hidden-mobile" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "0.5rem 0.875rem", borderRadius: 99, fontSize: "0.8rem", fontWeight: 600, color: scrolled ? "#1B3F8A" : "white", textDecoration: "none", border: scrolled ? "1.5px solid #DBEAFE" : "1.5px solid rgba(255,255,255,0.35)", transition: "all 0.2s" }}
             onMouseEnter={e => e.currentTarget.style.background = scrolled ? "#EBF4FF" : "rgba(255,255,255,0.1)"}
             onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-            <Phone size={13} /> 608 531 549
+            <Phone size={12} /> 608 531 549
           </a>
-          <a href="/rezerwacja" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.6rem 1.25rem", borderRadius: 99, fontSize: "0.875rem", fontWeight: 700, color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 4px 16px rgba(27,63,138,0.35)", transition: "transform 0.2s" }}
+          {/* Phone icon only — mobile */}
+          <a href="tel:+48608531549" className="show-mobile" style={{ display: "none", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: "50%", color: "white", border: "1.5px solid rgba(255,255,255,0.35)", background: "transparent" }}>
+            <Phone size={16} style={{ color: scrolled ? "#1B3F8A" : "white" }} />
+          </a>
+          {/* Reserve button */}
+          <a href="/rezerwacja" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "0.5rem 1rem", borderRadius: 99, fontSize: "0.8rem", fontWeight: 700, color: "white", textDecoration: "none", background: "linear-gradient(135deg,#00AEEF,#1B3F8A)", boxShadow: "0 4px 16px rgba(27,63,138,0.35)", transition: "transform 0.2s", whiteSpace: "nowrap" }}
             onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
             onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-            <Calendar size={13} /> Zarezerwuj
+            <Calendar size={12} /> Zarezerwuj
           </a>
         </div>
       </div>
+
+      {/* Mobile menu dropdown */}
+      <style>{`
+        .show-mobile { display: none !important; }
+        @media(max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: flex !important; }
+        }
+      `}</style>
     </header>
   );
 }
