@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { LOGO_SRC } from "./logo.js";
 import {
   Zap, Shield, Sparkles, Moon, Phone, MapPin, Clock,
-  Star, ChevronDown, Wind, Heart, CheckCircle, XCircle,
+  Star, ChevronDown, Heart, CheckCircle, XCircle,
   ArrowRight, Package, User, Send, ParkingCircle,
   Activity, Leaf, Award, Calendar
 } from "lucide-react";
@@ -201,15 +201,9 @@ function Hero() {
         </div>
 
         <div className="hero-right" style={{ position: "relative" }}>
-          <div style={{ borderRadius: 24, overflow: "hidden", aspectRatio: "4/5", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 32 }}>
-              <div style={{ width: "100%", height: "100%", borderRadius: 16, background: "linear-gradient(180deg,rgba(0,174,239,0.1),rgba(27,63,138,0.3))", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative" }}>
-                <Wind size={64} style={{ color: "rgba(0,174,239,0.7)", animation: "floatUp 4s ease-in-out infinite" }} />
-                <p style={{ color: "rgba(0,174,239,0.9)", marginTop: 16, fontSize: "0.9rem" }}>Komora Hiperbaryczna Śląsk</p>
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", marginTop: 4 }}>al. Zwycięstwa 6 – Sosnowiec</p>
-                <div style={{ position: "absolute", top: 16, right: 16, padding: "0.3rem 0.75rem", borderRadius: 99, fontSize: "0.72rem", fontWeight: 600, background: "rgba(0,174,239,0.2)", border: "1px solid rgba(0,174,239,0.35)", color: "#7DDEFF" }}>Certyfikat CE</div>
-              </div>
-            </div>
+          <div style={{ borderRadius: 24, overflow: "hidden", aspectRatio: "4/5", position: "relative" }}>
+            <img src="/komora.jpg" alt="Komora hiperbaryczna OmniXY Duo w gabinecie w Sosnowcu" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            <div style={{ position: "absolute", top: 16, right: 16, padding: "0.3rem 0.75rem", borderRadius: 99, fontSize: "0.72rem", fontWeight: 600, background: "rgba(0,174,239,0.2)", border: "1px solid rgba(0,174,239,0.35)", color: "#7DDEFF", backdropFilter: "blur(8px)" }}>Certyfikat CE</div>
           </div>
           <div style={{ position: "absolute", bottom: -24, left: -32, padding: "1rem 1.25rem", borderRadius: 16, background: "rgba(255,255,255,0.1)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.15)", minWidth: 200 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -422,9 +416,9 @@ function PricingCard({ p, i }) {
 
 function Pricing() {
   const plans = [
-    { icon: User, tag: "Cena promocyjna", title: "Sesja pojedyncza", price: "130", oldPrice: "170", unit: "zł / 80 min", desc: "Idealna na pierwsze doświadczenie lub jednorazową regenerację.", features: ["80 minut w komorze mHBOT", "Konsultacja wstępna", "Opieka personelu medycznego"], cta: "Zarezerwuj sesję", accent: "#1B3F8A", featured: false },
-    { icon: Package, tag: "Oszczędzasz 200 zł", title: "Pakiet 10 wejść", price: "1100", unit: "zł / 10 sesji", desc: "Najchętniej wybierany pakiet – pełny cykl regeneracyjny dla trwałych efektów.", features: ["10 x 80 minut", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Bezpłatna konsultacja", "Monitorowanie postępu"], cta: "Wybierz pakiet", accent: "#1B3F8A", featured: true },
-    { icon: Award, tag: "Najlepsza wartość", title: "Pakiet 25 wejść", price: "2100", unit: "zł / 25 sesji", desc: "Dla osób szukających długofalowych efektów – najkorzystniejsza cena za sesję.", features: ["25 x 80 minut", "Oszczędzasz aż 1 250 zł", "Priorytetowe rezerwacje", "Dedykowany opiekun", "Pełny program regeneracji"], cta: "Wybierz pakiet 25", accent: "#00AEEF", featured: false },
+    { icon: User, tag: "Na start", title: "Sesja pojedyncza", price: "130", oldPrice: "170", unit: "zł / 80 min", desc: "Przekonaj się na własnej skórze — idealna na pierwsze doświadczenie z komorą hiperbaryczną.", features: ["80 minut w komorze mHBOT", "Wywiad zdrowotny przed zabiegiem", "Opieka przeszkolonego personelu"], cta: "Zarezerwuj sesję", accent: "#1B3F8A", featured: false },
+    { icon: Package, tag: "Bestseller", title: "Pakiet 10 wejść", price: "1100", unit: "zł / 10 sesji", desc: "Najchętniej wybierany — pełny cykl regeneracyjny dla trwałych, odczuwalnych efektów.", features: ["10 × 80 minut sesji", "Priorytetowe rezerwacje terminów", "Dedykowany opiekun", "Bezpłatna konsultacja wstępna", "Elastyczne umawianie wizyt"], cta: "Wybierz pakiet", accent: "#1B3F8A", featured: true },
+    { icon: Award, tag: "Najlepsza wartość", title: "Pakiet 25 wejść", price: "2100", unit: "zł / 25 sesji", desc: "Maksymalne efekty w najlepszej cenie — dla osób nastawionych na długofalową regenerację.", features: ["25 × 80 minut sesji", "Oszczędzasz aż 1 150 zł", "Priorytetowe rezerwacje terminów", "Dedykowany opiekun", "Pełny program regeneracji"], cta: "Wybierz pakiet 25", accent: "#00AEEF", featured: false },
   ];
   return (
     <section id="oferta" style={{ padding: "9rem 1.5rem", background: "white" }}>
@@ -474,7 +468,7 @@ function Safety() {
             </p>
             {[
               { icon: Heart, text: "Konsultacja medyczna przed każdą serią zabiegów" },
-              { icon: Activity, text: "Monitorowanie saturacji O₂ w czasie rzeczywistym" },
+              { icon: Activity, text: "Stały kontakt z personelem w trakcie całej sesji" },
               { icon: Award, text: "Certyfikat CE · Normy ISO · Ubezpieczenie OC" },
             ].map(item => (
               <div key={item.text} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, fontSize: "0.875rem", color: "#1a3a5c" }}>
