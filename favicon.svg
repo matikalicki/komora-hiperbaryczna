@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="white"/>
+  <!-- Rounded rect with thick stroke, slightly skewed via transform -->
+  <g transform="skewX(-5) translate(3,0)">
+    <rect x="5" y="5" width="52" height="44" rx="12" ry="12"
+          fill="white" stroke="#1B3F8A" stroke-width="10"/>
+  </g>
+  <!-- Cyan circle bottom-left -->
+  <circle cx="12" cy="52" r="9" fill="#00AEEF"/>
+</svg>

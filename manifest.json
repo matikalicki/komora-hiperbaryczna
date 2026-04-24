@@ -1,0 +1,38 @@
+{
+  "name": "Komora Hiperbaryczna Śląsk — Tlenoterapia mHBOT",
+  "short_name": "Strefa Oxygen",
+  "description": "Komora hiperbaryczna w Sosnowcu. Terapia tlenowa mHBOT — regeneracja, sport, zdrowie, anti-aging.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071E3D",
+  "theme_color": "#071E3D",
+  "orientation": "portrait-primary",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["health", "medical"],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
